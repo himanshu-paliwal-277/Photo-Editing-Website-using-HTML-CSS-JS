@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  /* Body */
+  
+  body {
+    background-color: rgb(143, 128, 128);
+  }
+
+  /* Container */
+
+  .container {
+    display: flex;
+    
+  }
+
+  /* Nav bar */
+
+  nav {
+    width: 7%;
+    height: 100vh;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 40px 0px; */
+  }
+
+  .filter_type {
+    /* border: 2px solid red; */
+    padding: 15px;
+    margin: 5px 0px;
+    border-radius: 12px;
+  }
+
+  .svg_img {
+    filter: invert(1);
+    width: 35px;
+    height: 35px;
+    /* border: 2px solid red; */
+    /* margin: 10px; */
+  }
+
+  /* Main Section */
+
+  main {
+    width: 73%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  /* Aside Section */
+
+  aside {
+    display: flex;
+    width: 20%;
+    background-color: white;
+    height: 100vh;
+  }
+  
+  aside svg {
+    width: 40px;
+    height: 40px;
+    margin: 0px 20px;
+    filter: invert(0.5);
+  }
+  
+  aside .flip_img {
+    width: 40px;
+    height: 40px;
+    margin: 0px 20px;
+    filter: invert(0.5);
+  }
+
+  /* Aside section part_1 - basics */
+  
+  aside #basics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    border: 2px solid red;
+  }
+  
+  aside #basics h1 {
+    width: 85%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 17px 0px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(255, 102, 0);
+    font-weight: 200;
+  }
+  
+  aside .box {
+    display: flex;
+    align-items: center;
+    /* border: 3px solid red; */
+    border-bottom: 2px solid gray;
+    border-radius: 3px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 85%;
+    margin-bottom: 24px;
+    padding: 10px 0px;
+    color: gray;
+  }
+  
+  aside .box:hover {
+    background-color: rgba(1, 199, 248, 0.103);
+  }
+  
+  aside .box span {
+    margin-left: 10px;
+    font-size: 1.5rem;
+  }
