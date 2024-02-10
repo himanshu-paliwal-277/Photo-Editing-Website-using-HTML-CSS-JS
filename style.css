@@ -10,7 +10,27 @@
   /* Body */
   
   body {
-    background-color: rgb(143, 128, 128);
+    overflow: hidden;
+  }
+
+  body input[type="range"] {
+    cursor: grab;
+  }
+  
+  body input[type="range"]:active {
+    cursor: grabbing;
+  }
+
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("./Assets/viewport-bg.png");
+    filter: invert(0);
+    z-index: -1;
   }
 
   /* Container */
@@ -31,6 +51,8 @@
     justify-content: center;
     align-items: center;
     /* padding: 40px 0px; */
+    position: relative;
+    z-index: 5;
   }
 
   .filter_type {
@@ -38,14 +60,17 @@
     padding: 15px;
     margin: 5px 0px;
     border-radius: 12px;
+    cursor: pointer;
   }
 
   .svg_img {
-    filter: invert(1);
+    /* filter: invert(1); */
     width: 35px;
     height: 35px;
-    /* border: 2px solid red; */
-    /* margin: 10px; */
+  }
+  
+  .svg_img:hover {
+    filter: brightness(0.8) contrast(1.2) sepia(1) hue-rotate(157deg) saturate(10)
   }
 
   /* Main Section */
@@ -57,14 +82,57 @@
     align-items: center;
     flex-direction: column;
   }
+  
+  main .import_image_btn {
+    width: 45%;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    border: 2px dashed #c9c9c9;
+    background-color: white;
+    position: absolute;
+    z-index: 2;
+  }
+  
+  main .import_image_btn:hover {
+    background-color: #f1f6ff;
+    border: 2px dashed #3478ff;
+  }
+  
+  main .import_image_btn > img {
+    width: 60px;
+    height: 70px;
+  }
+  
+  main .import_image_btn > span {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+  }
+  
+  main .import_image_btn > button {
+    width: 140px;
+    height: 46px;
+    font-size: 1rem;
+    border: none;
+    background-color: #1d65f8;
+    color: white;
+    border-radius: 5px;
+  }
 
   /* Aside Section */
 
   aside {
     display: flex;
-    width: 20%;
-    background-color: white;
+    width: 22%;
+    background-color: rgb(243, 228, 18);
     height: 100vh;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    position: relative;
+    z-index: 1;
   }
   
   aside svg {
@@ -74,14 +142,14 @@
     filter: invert(0.5);
   }
   
-  aside .flip_img {
+  aside .svg {
     width: 40px;
     height: 40px;
     margin: 0px 20px;
     filter: invert(0.5);
   }
 
-  /* Aside section part_1 - basics */
+  /* Aside section part_1 - basics section*/
   
   aside #basics {
     display: flex;
@@ -89,10 +157,13 @@
     align-items: center;
     width: 100%;
     height: 100vh;
-    border: 2px solid red;
+    /* border: 2px solid red; */
+    background-color: white;
+    /* Ex */
+    /* display: none; */
   }
   
-  aside #basics h1 {
+  aside h1 {
     width: 85%;
     height: 50px;
     display: flex;
@@ -117,13 +188,149 @@
     margin-bottom: 24px;
     padding: 10px 0px;
     color: gray;
+    cursor: pointer;
   }
   
   aside .box:hover {
-    background-color: rgba(1, 199, 248, 0.103);
+    background-color: #01c7f81a;
   }
   
   aside .box span {
     margin-left: 10px;
     font-size: 1.5rem;
   }
+
+  /* Aside section part_2 - text section*/
+
+  aside #text {
+    width: 100%;
+    height: 100vh;
+    /* border: 2px solid red; */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    /* ex */
+    /* display: none; */
+  }
+
+  aside #text .box > span {
+    padding-left: 20px;
+  }
+
+  /* Aside section part_3 - drawing section*/
+
+  aside #drawing {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Ex */
+    /* display: none; */
+  }
+  
+  /* Aside section part_4 - filter section*/
+
+  aside #filter {
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  aside #filter > span {
+    /* border: 2px solid red; */
+    padding-left: 20px;
+  }
+
+  /* Edit Section */
+
+  .Filter_Edit_boxes_section {
+    /* border: 2px solid red; */
+    width: 200px;
+    height: 100vh;
+    position: absolute;
+    left: 395px;
+    z-index: 1;
+    padding-top: 90px;
+    display: none;
+  }
+  
+  .Filter_Edit_boxes_section .edit_box {
+    display: flex;
+    flex-direction: column;
+    background-color: #e8f8f0;
+    margin: 10px 0px;
+    height: 150px;
+    flex-wrap: wrap;
+    /* border: 2px solid red; */
+    border-radius: 10px;
+    display: none;
+  }
+  
+  .Filter_Edit_boxes_section .edit_box > section {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px;
+  }
+  
+  .Filter_Edit_boxes_section .edit_box > section > .edit_box_div {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .Filter_Edit_boxes_section .edit_box > section > .edit_box_div > img {
+    width: 20px;
+  }
+  
+  .Filter_Edit_boxes_section .edit_box > span {
+    background-color: black;
+    color: white;
+    padding: 15px;
+    margin-bottom: 40px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  /* Input image view port section */
+
+  main .image_src {
+    width: 75%;
+    height: 100vh;
+    position: absolute;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+    /* scrollbar-width: hidden; */
+    /* scrollbar-width: none; */
+    /* background-color: blue; */
+  }
+  
+  main .image_src img {
+    height: 80%;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .zoom {
+    position: absolute;
+    z-index: 2;
+    top: 90vh;
+    right: 50px;
+  }
+  
+  /* .zoom > #zoomRange {
+    cursor: grab;
+  }
+
+  .zoom #zoomRange:active {
+    cursor: grabbing;
+  } */
