@@ -240,29 +240,39 @@ reset_button.addEventListener("click", () => {
     saturate_value = 100;
     invert_value = 0;
     blur_value = 0;
+    brightness_range_input.value = 100;
+    contrast_range_input.value = 100;
+    saturate_range_input.value = 100;
+    invert_range_input.value = 0;
+    blur_range_input.value = 0;
+    document.querySelector("#brightnss_value").innerHTML = `${brightness_value}%`;
+    document.querySelector("#contrast_value").innerHTML = `${contrast_value}%`;
+    document.querySelector("#saturate_value").innerHTML = `${saturate_value}%`;
+    document.querySelector("#invert_value").innerHTML = `${invert_value}%`;
+    document.querySelector("#blur_value").innerHTML = `${blur_value}%`;  
     image_src.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturate_value}%) invert(${invert_value}%) blur(${blur_value}px)`;
   }
 });
 
 save_button.addEventListener("click", function () {
   if (confirm("Do you want download image")) {
-  let canvas = document.createElement("canvas");
-  let ctx = canvas.getContext("2d");
-  canvas.width = image_src.naturalWidth;
-  canvas.height = image_src.naturalHeight;
-  ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturate_value}%) invert(${invert_value}%) blur(${blur_value}px)`;
-  ctx.translate(canvas.width / 2, canvas.height / 2);
-  // ctx.scale(flip_x, flip_y);
-  ctx.drawImage(
-    image_src,
-    -canvas.width / 2,
-    -canvas.height / 2,
-    canvas.width,
-    canvas.height
-  );
-  const link = document.createElement("a");
-  link.download = "image.jpg";
-  link.href = canvas.toDataURL();
-  link.click();
-}
+    let canvas = document.createElement("canvas");
+    let ctx = canvas.getContext("2d");
+    canvas.width = image_src.naturalWidth;
+    canvas.height = image_src.naturalHeight;
+    ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturate_value}%) invert(${invert_value}%) blur(${blur_value}px)`;
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    // ctx.scale(flip_x, flip_y);
+    ctx.drawImage(
+      image_src,
+      -canvas.width / 2,
+      -canvas.height / 2,
+      canvas.width,
+      canvas.height
+    );
+    const link = document.createElement("a");
+    link.download = "image.jpg";
+    link.href = canvas.toDataURL();
+    link.click();
+  }
 });
