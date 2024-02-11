@@ -5,16 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Photo Editing Website</title>
     <link rel="stylesheet" href="style.css" />
-    <style>
-      
-    </style>
+    <!-- Tailwind css CDN link -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style></style>
   </head>
   <body>
     <div class="container">
       <!-- Nav bar section -->
       <nav>
         <div class="filter_type" id="filter_1">
-          <svg class="svg_img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#f0f0f0" d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
+          <svg
+            class="svg_img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              fill="#f0f0f0"
+              d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
+            />
+          </svg>
         </div>
         <div class="filter_type" id="filter_2">
           <svg
@@ -84,9 +93,6 @@
             <svg xmlns="http://www.w3.org/2000/svg">
               <rect width="100" height="100" rx="15" ry="15" fill="red" />
             </svg>
-            
-            </svg>            
-
             <span>Round</span>
           </div>
           <div class="box">
@@ -131,23 +137,27 @@
         <div id="filter">
           <h1>Filter</h1>
           <div class="box">
-            <img class="svg" src="./Assets/brightnss.png" alt="Brightness img">
+            <img
+              class="svg"
+              src="./Assets/brightnss.png"
+              alt="Brightness img"
+            />
             <span>Brightness</span>
           </div>
           <div class="box">
-            <img class="svg" src="./Assets/contrast.png" alt="Contrast img">
+            <img class="svg" src="./Assets/contrast.png" alt="Contrast img" />
             <span>Contrast</span>
           </div>
           <div class="box">
-            <img class="svg" src="./Assets/opactiy.png" alt="Saturate img">
+            <img class="svg" src="./Assets/opactiy.png" alt="Saturate img" />
             <span>Saturate</span>
           </div>
           <div class="box">
-            <img class="svg" src="./Assets/invert.png" alt="Invert img">
+            <img class="svg" src="./Assets/invert.png" alt="Invert img" />
             <span>Invert</span>
           </div>
           <div class="box">
-            <img class="svg" src="./Assets/blur.png" alt="Blur img">
+            <img class="svg" src="./Assets/blur.png" alt="Blur img" />
             <span>Blur</span>
           </div>
         </div>
@@ -158,43 +168,85 @@
           <span>Brightness</span>
           <section>
             <div class="edit_box_div">
-              <img src="./Assets/brightnss.png" alt="brightnss logo">
+              <img src="./Assets/brightnss.png" alt="brightnss logo" />
               <span id="brightnss_value">100%</span>
             </div>
-            <input type="range" min="0" max="200" step="1">
+            <input type="range" min="0" max="200" step="1" value="100" />
           </section>
         </div>
         <div class="edit_box">
           <span>Contrast</span>
-          <input type="range" name="" id="">
+          <section>
+            <div class="edit_box_div">
+              <img src="./Assets/contrast.png" alt="contrast logo" />
+              <span id="contrast_value">100%</span>
+            </div>
+            <input type="range" min="0" max="200" step="1" value="100" />
+          </section>
         </div>
         <div class="edit_box">
           <span>Saturate</span>
-          <input type="range" name="" id="">
+          <section>
+            <div class="edit_box_div">
+              <img src="./Assets/opactiy.png" alt="Saturate logo" />
+              <span id="saturate_value">100%</span>
+            </div>
+            <input type="range" min="0" max="200" step="1" />
+          </section>
         </div>
         <div class="edit_box">
           <span>Invert</span>
-          <input type="range" name="" id="">
+          <section>
+            <div class="edit_box_div">
+              <img src="./Assets/invert.png" alt="invert logo" />
+              <span id="invert_value">0%</span>
+            </div>
+            <input type="range" min="0" max="100" step="1" value="0" />
+          </section>
         </div>
         <div class="edit_box">
           <span>Blur</span>
-          <input type="range" name="" id="">
+          <section>
+            <div class="edit_box_div">
+              <img src="./Assets/blur.png" alt="blur logo" />
+              <span id="blur_value">0%</span>
+            </div>
+            <input type="range" min="0" max="10" step="0.1" value="0" />
+          </section>
         </div>
       </div>
       <!-- Main section -->
       <main>
+        <!-- input image -->
         <div class="image_src">
-          <img src="">
+          <img src="" />
         </div>
         <div class="import_image_btn">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png" alt="Pluse image">
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png"
+            alt="Pluse image"
+          />
           <span>Upload your own image</span>
           <button>Open Image</button>
-          <input type="file" name="file" id="file_input" hidden/>
+          <input type="file" name="file" id="file_input" hidden />
         </div>
       </main>
+      <!-- Reset and save Button -->
+      <div class="reset_and_save_btn">
+        <button>Reset</button>
+        <button>Save</button>
+      </div>
       <div class="zoom">
-        <input id="zoomRange" type="range" min="0.2" max="3" step="0.01">
+        <!-- <input class="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128" type="range" min="1" max="100" step="1" value="15" /> -->
+        <input
+          id="zoomRange"
+          class="rounded-3xl overflow-hidden appearance-none bg-blue-200 h-3 w-128"
+          type="range"
+          min="0.2"
+          max="3"
+          step="0.01"
+          value="1"
+        />
       </div>
     </div>
 
