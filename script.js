@@ -36,6 +36,68 @@ zoom_input.addEventListener("input", function () {
 });
 // -----------------------------------------------
 
+// --------------------------------------------------------------------------
+let rotate_button = document.querySelector("#basics .box:nth-child(3)");
+let flip_button = document.querySelector("#basics .box:nth-child(4)");
+let round_button = document.querySelector("#basics .box:nth-child(5)");
+let color_button = document.querySelector("#basics .box:nth-child(6)");
+
+let rotate_edit_box = document.querySelector(
+  ".basics_edit_boxes_seciton .edit_box:nth-child(1)"
+);
+let flip_edit_box = document.querySelector(
+  ".basics_edit_boxes_seciton .edit_box:nth-child(2)"
+);
+let round_edit_box = document.querySelector(
+  ".basics_edit_boxes_seciton .edit_box:nth-child(3)"
+);
+let color_edit_box = document.querySelector(
+  ".basics_edit_boxes_seciton .edit_box:nth-child(4)"
+);
+
+rotate_button.addEventListener("click", () => {
+  rotate_button.style.backgroundColor = "#01c7f81a";
+  flip_button.style.backgroundColor = "transparent";
+  round_button.style.backgroundColor = "transparent";
+  color_button.style.backgroundColor = "transparent";
+  rotate_edit_box.style.display = "flex";
+  flip_edit_box.style.display = "none";
+  round_edit_box.style.display = "none";
+  color_edit_box.style.display = "none";
+});
+flip_button.addEventListener("click", () => {
+  rotate_button.style.backgroundColor = "transparent";
+  flip_button.style.backgroundColor = "#01c7f81a";
+  round_button.style.backgroundColor = "transparent";
+  color_button.style.backgroundColor = "transparent";
+  rotate_edit_box.style.display = "none";
+  flip_edit_box.style.display = "flex";
+  round_edit_box.style.display = "none";
+  color_edit_box.style.display = "none";
+});
+round_button.addEventListener("click", () => {
+  rotate_button.style.backgroundColor = "transparent";
+  flip_button.style.backgroundColor = "transparent";
+  round_button.style.backgroundColor = "#01c7f81a";
+  color_button.style.backgroundColor = "transparent";
+  rotate_edit_box.style.display = "none";
+  flip_edit_box.style.display = "none";
+  round_edit_box.style.display = "flex";
+  color_edit_box.style.display = "none";
+});
+color_button.addEventListener("click", () => {
+  rotate_button.style.backgroundColor = "transparent";
+  flip_button.style.backgroundColor = "transparent";
+  round_button.style.backgroundColor = "transparent";
+  color_button.style.backgroundColor = "#01c7f81a";
+  rotate_edit_box.style.display = "none";
+  flip_edit_box.style.display = "none";
+  round_edit_box.style.display = "none";
+  color_edit_box.style.display = "flex";
+});
+
+// --------------------------------------------------------------------------
+
 // ___________________________________________________
 // edit box :
 // child start from 2 - 6,
@@ -234,7 +296,7 @@ let save_button = document.querySelector(
 
 // If user click reset button:
 reset_button.addEventListener("click", () => {
-  if (confirm("Do you want really want to reset")) {
+  if (confirm("Do you really want to reset filters")) {
     brightness_value = 100;
     contrast_value = 100;
     saturate_value = 100;
@@ -245,17 +307,19 @@ reset_button.addEventListener("click", () => {
     saturate_range_input.value = 100;
     invert_range_input.value = 0;
     blur_range_input.value = 0;
-    document.querySelector("#brightnss_value").innerHTML = `${brightness_value}%`;
+    document.querySelector(
+      "#brightnss_value"
+    ).innerHTML = `${brightness_value}%`;
     document.querySelector("#contrast_value").innerHTML = `${contrast_value}%`;
     document.querySelector("#saturate_value").innerHTML = `${saturate_value}%`;
     document.querySelector("#invert_value").innerHTML = `${invert_value}%`;
-    document.querySelector("#blur_value").innerHTML = `${blur_value}%`;  
+    document.querySelector("#blur_value").innerHTML = `${blur_value}%`;
     image_src.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturate_value}%) invert(${invert_value}%) blur(${blur_value}px)`;
   }
 });
 
 save_button.addEventListener("click", function () {
-  if (confirm("Do you want download image")) {
+  if (confirm("Do you want to download an image")) {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
     canvas.width = image_src.naturalWidth;
