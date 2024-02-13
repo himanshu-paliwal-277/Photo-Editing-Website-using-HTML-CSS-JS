@@ -169,19 +169,19 @@
           <section>
             <div class="edit_box_div">
               <img src="./Assets/rotateleft.png" alt="rotate logo" />
-              <span id="rotate_value">0%</span>
+              <span id="rotate_value">0deg</span>
             </div>
-            <input type="range" min="0" max="200" step="1" value="0" />
+            <input type="range" min="0" max="360" step="1" value="0" />
           </section>
         </div>
         <div class="edit_box">
           <span>Flip</span>
           <section>
             <div class="edit_box_div">
-              <img src="./Assets/flip.png" alt="flip logo" />
-              <span id="flip_value">0%</span>
+              <img id="flip_img_1" src="./Assets/flip.png" alt="flip logo" />
+              <img id="flip_img_2" src="./Assets/flip.png" alt="flip logo">
             </div>
-            <input type="range" min="0" max="200" step="1" value="0" />
+            <!-- <input type="range" min="0" max="200" step="1" value="0" /> -->
           </section>
         </div>
         <div class="edit_box">
@@ -199,9 +199,9 @@
           <section>
             <div class="edit_box_div">
               <img src="./Assets/color_img.png" alt="Color logo" />
-              <span id="color_value">0%</span>
+              <span id="color_value">transparent</span>
             </div>
-            <input type="range" min="0" max="100" step="1" value="0" />
+            <input type="color">
           </section>
         </div>
       </div>
@@ -292,6 +292,8 @@
       </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="./JS/script.js"></script>
+    <script src="./JS/Edit_filter.js"></script>
+    <script src="./JS/Edit_basics.js"></script>
   </body>
 </html>
