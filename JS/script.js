@@ -132,13 +132,18 @@ save_button.addEventListener("click", function () {
     let ctx = canvas.getContext("2d");
     canvas.width = image_src.naturalWidth;
     canvas.height = image_src.naturalHeight;
+    // apply filters
     ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturate_value}%) invert(${invert_value}%) blur(${blur_value}px)`;
-    // ctx.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_in_x_axis}) scaleY(${flip_in_y_axis})`;
-    // ----------------------
-    // ctx.rotate(rotate_value * Math.PI / 180);
-    // ctx.drawImage(image_src, -image_src.naturalWidth / 2, -image_src.naturalHeight / 2, image_src.naturalWidth, image_src.naturalHeight);
-    // ----------------------
+    // apply border radius
+    clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, round_value);
+    // apply - Backgound color
+    ctx.fillStyle = color_value;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.translate(canvas.width / 2, canvas.height / 2);
+    // apply - rotate 
+    ctx.rotate(rotate_value * Math.PI / 180);
+    // apply - flip
+    ctx.scale(flip_in_x_axis,flip_in_y_axis);
     ctx.drawImage(
       image_src,
       -canvas.width / 2,
@@ -146,6 +151,23 @@ save_button.addEventListener("click", function () {
       canvas.width,
       canvas.height
     );
+    // ---------------------------------------------------------------
+    // Function to apply border-radius in image_src
+    function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
+        ctx.beginPath();
+        ctx.moveTo(x + borderRadius, y);
+        ctx.lineTo(x + width - borderRadius, y);
+        ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
+        ctx.lineTo(x + width, y + height - borderRadius);
+        ctx.quadraticCurveTo(x + width, y + height, x + width - borderRadius, y + height);
+        ctx.lineTo(x + borderRadius, y + height);
+        ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
+        ctx.lineTo(x, y + borderRadius);
+        ctx.quadraticCurveTo(x, y, x + borderRadius, y);
+        ctx.closePath();
+        ctx.clip();
+    }
+    // ---------------------------------------------------------------
     const link = document.createElement("a");
     link.download = "image.jpg";
     link.href = canvas.toDataURL();
