@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="style.css" />
     <!-- Tailwind css CDN link -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <style></style>
+    <!-- Cropper.js stylesheet -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -179,7 +183,7 @@
           <section>
             <div class="edit_box_div">
               <img id="flip_img_1" src="./Assets/flip.png" alt="flip logo" />
-              <img id="flip_img_2" src="./Assets/flip.png" alt="flip logo">
+              <img id="flip_img_2" src="./Assets/flip.png" alt="flip logo" />
             </div>
             <!-- <input type="range" min="0" max="200" step="1" value="0" /> -->
           </section>
@@ -191,7 +195,7 @@
               <img src="./Assets/round_img.png" alt="Round logo" />
               <span id="round_value">0%</span>
             </div>
-            <input type="range" min="0" max="200" step="1" value="0"/>
+            <input type="range" min="0" max="200" step="1" value="0" />
           </section>
         </div>
         <div class="edit_box">
@@ -201,7 +205,7 @@
               <img src="./Assets/color_img.png" alt="Color logo" />
               <span id="color_value">transparent</span>
             </div>
-            <input type="color">
+            <input type="color" />
           </section>
         </div>
       </div>
@@ -295,5 +299,7 @@
     <script src="./JS/script.js"></script>
     <script src="./JS/Edit_filter.js"></script>
     <script src="./JS/Edit_basics.js"></script>
+    <!-- Cropper.js plugin  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
   </body>
 </html>
