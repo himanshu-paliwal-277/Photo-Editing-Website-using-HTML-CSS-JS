@@ -3,303 +3,275 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Photo Editing Website</title>
-    <link rel="stylesheet" href="style.css" />
-    <!-- Tailwind css CDN link -->
+    <title>Photo Editor</title>
+    <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Cropper.js stylesheet -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
-      rel="stylesheet"
-    />
+    <!-- AOS JS library CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Favicon (Website logo) -->
+    <link rel="shortcut icon" href="../Assets/logo.png" type="image/x-icon">
   </head>
   <body>
-    <div class="container">
-      <!-- Nav bar section -->
-      <nav>
-        <div class="filter_type" id="filter_1">
-          <svg
-            class="svg_img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
+    <!-- Navigation bar -->
+    <nav id="navbar"
+      class="fixed inset-x-0 top-0 z-10 w-full px-24 py-0 bg-transparent border-slate-500 transition duration-700 ease-out"
+    >
+      <div class="flex justify-between p-4">
+        <div
+          class="text-[2rem] leading-[3rem] tracking-tight font-bold text-black flex"
+        >
+          <img class="w-12" src="../Assets/logo.png" alt="logo">Editor
+        </div>
+        <!-- Dropdown -->
+        <div class="flex">
+          <!-- First dropdown -->
+        <div class="flex items-center justify-center mx-4">
+          <div class="relative inline-block text-left">
+              <button id="dropdown-button-1" class="inline-flex justify-center w-full px-3 py-1 text-base font-medium text-gray-700 bg-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-blue-500 hover:bg-blue-50 hover:bg-opacity-50">
+                Photo Editing Tools
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+              </button>
+              <div id="dropdown-menu-1" class="hidden origin-top-right absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-1">
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Second dropdown -->
+        <div class="flex items-center justify-center mx-4">
+          <div class="relative inline-block text-left">
+              <button id="dropdown-button-2" class="inline-flex justify-center w-full px-3 py-1 text-base font-medium text-gray-700 bg-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-blue-500 hover:bg-blue-50 hover:bg-opacity-50">
+                Draw
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+              </button>
+              <div id="dropdown-menu-2" class="hidden origin-top-right absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-2">
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Third dropdown -->
+        <div class="flex items-center justify-center mx-4">
+          <div class="relative inline-block text-left">
+              <button id="dropdown-button-3" class="inline-flex justify-center w-full px-3 py-1 text-base font-medium text-gray-700 bg-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-offset-gray-100 focus:ring-blue-500 hover:bg-blue-50 hover:bg-opacity-50">
+                AI Tool
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                      <path fill-rule="evenodd" d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                  </svg>
+              </button>
+              <div id="dropdown-menu-3" class="hidden origin-top-right absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+                  <div class="py-2 p-2" role="menu" aria-orientation="vertical" aria-labelledby="dropdown-button-3">
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                      <a class="flex block rounded-md px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 active:bg-blue-100 cursor-pointer" role="menuitem">
+                        Edit
+                        </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+        </div>
+        <div
+          class="flex items-center space-x-4 text-lg font-semibold tracking-tight"
+        >
+          <button
+            class="px-5 py-2 text-base text-black transition duration-700 ease-out bg-white border border-black rounded-lg hover:bg-black hover:border hover:text-white :border-white"
           >
-            <path
-              fill="#f0f0f0"
-              d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zM323.8 202.5c-4.5-6.6-11.9-10.5-19.8-10.5s-15.4 3.9-19.8 10.5l-87 127.6L170.7 297c-4.6-5.7-11.5-9-18.7-9s-14.2 3.3-18.7 9l-64 80c-5.8 7.2-6.9 17.1-2.9 25.4s12.4 13.6 21.6 13.6h96 32H424c8.9 0 17.1-4.9 21.2-12.8s3.6-17.4-1.4-24.7l-120-176zM112 192a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"
-            />
-          </svg>
-        </div>
-        <div class="filter_type" id="filter_2">
-          <svg
-            class="svg_img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 384 512"
-            fill="#f0f0f0"
+            Sign in
+          </button>
+          <button
+            class="px-5 py-2 text-base text-white transition duration-500 ease-out bg-blue-700 rounded-lg hover:bg-blue-800 hover:ease-in hover:outline hover:outline-white"
           >
-            <path
-              d="M32 32C14.3 32 0 46.3 0 64S14.3 96 32 96H160V448c0 17.7 14.3 32 32 32s32-14.3 32-32V96H352c17.7 0 32-14.3 32-32s-14.3-32-32-32H192 32z"
-            />
-          </svg>
-        </div>
-        <div class="filter_type" id="filter_3">
-          <svg
-            class="svg_img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 576 512"
-            fill="#f0f0f0"
-          >
-            <path
-              d="M339.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L568.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S517.7-4.4 499.1 9.6L262.4 187.2c-24 18-38.2 46.1-38.4 76.1L339.3 367.1zm-19.6 25.4l-116-104.4C143.9 290.3 96 339.6 96 400c0 3.9 .2 7.8 .6 11.6C98.4 429.1 86.4 448 68.8 448H64c-17.7 0-32 14.3-32 32s14.3 32 32 32H208c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"
-            />
-          </svg>
-        </div>
-        <div class="filter_type" id="filter_4">
-          <svg
-            class="svg_img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            fill="#f0f0f0"
-          >
-            <path
-              d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"
-            />
-          </svg>
-        </div>
-      </nav>
-      <!-- Aside section -->
-      <aside>
-        <!-- Aside - basics section -->
-        <div id="basics">
-          <h1>Basics</h1>
-          <div class="box">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path
-                d="M128 32c0-17.7-14.3-32-32-32S64 14.3 64 32V64H32C14.3 64 0 78.3 0 96s14.3 32 32 32H64V384c0 35.3 28.7 64 64 64H352V384H128V32zM384 480c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H448l0-256c0-35.3-28.7-64-64-64L160 64v64l224 0 0 352z"
-              />
-            </svg>
-            <span>Crop</span>
-          </div>
-          <div class="box">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-              <path
-                d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"
-              />
-            </svg>
-
-            <span>Rotate</span>
-          </div>
-          <div class="box">
-            <img class="svg" src="./Assets/flip.png" alt="flip image" />
-
-            <span>Flip</span>
-          </div>
-          <div class="box">
-            <svg xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="100" rx="15" ry="15" fill="red" />
-            </svg>
-            <span>Round</span>
-          </div>
-          <div class="box">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-              <path
-                d="M41.4 9.4C53.9-3.1 74.1-3.1 86.6 9.4L168 90.7l53.1-53.1c28.1-28.1 73.7-28.1 101.8 0L474.3 189.1c28.1 28.1 28.1 73.7 0 101.8L283.9 481.4c-37.5 37.5-98.3 37.5-135.8 0L30.6 363.9c-37.5-37.5-37.5-98.3 0-135.8L122.7 136 41.4 54.6c-12.5-12.5-12.5-32.8 0-45.3zm176 221.3L168 181.3 75.9 273.4c-4.2 4.2-7 9.3-8.4 14.6H386.7l42.3-42.3c3.1-3.1 3.1-8.2 0-11.3L277.7 82.9c-3.1-3.1-8.2-3.1-11.3 0L213.3 136l49.4 49.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0zM512 512c-35.3 0-64-28.7-64-64c0-25.2 32.6-79.6 51.2-108.7c6-9.4 19.5-9.4 25.5 0C543.4 368.4 576 422.8 576 448c0 35.3-28.7 64-64 64z"
-              />
-            </svg>
-            <span>Color</span>
-          </div>
-        </div>
-        <!-- Aside - text section -->
-        <div id="text">
-          <h1>Pick a Font</h1>
-          <div class="box">
-            <span>Roboto</span>
-          </div>
-          <div class="box">
-            <span>Sans Serif</span>
-          </div>
-          <div class="box">
-            <span>Serif</span>
-          </div>
-          <div class="box">
-            <span>Monospace</span>
-          </div>
-        </div>
-        <!-- Aside - drawing section -->
-        <div id="drawing">
-          <h1>Pick a Brush</h1>
-          <div class="box">
-            <span>something</span>
-          </div>
-          <div class="box">
-            <span>something</span>
-          </div>
-          <div class="box">
-            <span>something</span>
-          </div>
-        </div>
-        <!-- Aside - filter section -->
-        <div id="filter">
-          <h1>Filter</h1>
-          <div class="box">
-            <img
-              class="svg"
-              src="./Assets/brightnss.png"
-              alt="Brightness img"
-            />
-            <span>Brightness</span>
-          </div>
-          <div class="box">
-            <img class="svg" src="./Assets/contrast.png" alt="Contrast img" />
-            <span>Contrast</span>
-          </div>
-          <div class="box">
-            <img class="svg" src="./Assets/opactiy.png" alt="Saturate img" />
-            <span>Saturate</span>
-          </div>
-          <div class="box">
-            <img class="svg" src="./Assets/invert.png" alt="Invert img" />
-            <span>Invert</span>
-          </div>
-          <div class="box">
-            <img class="svg" src="./Assets/blur.png" alt="Blur img" />
-            <span>Blur</span>
-          </div>
-        </div>
-      </aside>
-      <!-- Filter Edit section -->
-      <div class="basics_edit_boxes_seciton">
-        <div class="edit_box">
-          <span>Rotate</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/rotateleft.png" alt="rotate logo" />
-              <span id="rotate_value">0deg</span>
-            </div>
-            <input type="range" min="0" max="360" step="1" value="0" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Flip</span>
-          <section>
-            <div class="edit_box_div">
-              <img id="flip_img_1" src="./Assets/flip.png" alt="flip logo" />
-              <img id="flip_img_2" src="./Assets/flip.png" alt="flip logo" />
-            </div>
-            <!-- <input type="range" min="0" max="200" step="1" value="0" /> -->
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Round</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/round_img.png" alt="Round logo" />
-              <span id="round_value">0%</span>
-            </div>
-            <input type="range" min="0" max="200" step="1" value="0" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Color</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/color_img.png" alt="Color logo" />
-              <span id="color_value">transparent</span>
-            </div>
-            <input type="color" />
-          </section>
+            Sign up
+          </button>
         </div>
       </div>
-      <div class="Filter_Edit_boxes_section">
-        <div class="edit_box">
-          <span>Brightness</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/brightnss.png" alt="brightnss logo" />
-              <span id="brightnss_value">100%</span>
-            </div>
-            <input type="range" min="0" max="200" step="1" value="100" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Contrast</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/contrast.png" alt="contrast logo" />
-              <span id="contrast_value">100%</span>
-            </div>
-            <input type="range" min="0" max="200" step="1" value="100" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Saturate</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/opactiy.png" alt="Saturate logo" />
-              <span id="saturate_value">100%</span>
-            </div>
-            <input type="range" min="0" max="200" step="1" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Invert</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/invert.png" alt="invert logo" />
-              <span id="invert_value">0%</span>
-            </div>
-            <input type="range" min="0" max="100" step="1" value="0" />
-          </section>
-        </div>
-        <div class="edit_box">
-          <span>Blur</span>
-          <section>
-            <div class="edit_box_div">
-              <img src="./Assets/blur.png" alt="blur logo" />
-              <span id="blur_value">0%</span>
-            </div>
-            <input type="range" min="0" max="10" step="0.1" value="0" />
-          </section>
-        </div>
+    </nav>
+	<!-- Section 1 -->
+	<section class="w-full h-[550px] bg-gradient-to-br from-green-200 via-purple-300 to-blue-300 px-28 pt-32">
+		<div class="flex">
+      <div>
+        <h1 class="text-5xl font-semibold">Online photo editor</h1>
+        <p class="text-lg font-semibold w-2/3 my-6">Our online photo editor offers basic photo editing features you need to enhance and edit photos effortlessly. Experience simple & easy photo editing online for free!</p>
+        <button class="bg-[#223ce5] hover:ring-2 hover:ring-offset-1 hover:ring-blue-500 text-white px-8 py-3 rounded-md font-semibold text-lg">Edit Photo</button>
       </div>
-      <!-- Main section -->
-      <main>
-        <!-- input image -->
-        <div class="image_src">
-          <img src="" />
-        </div>
-        <div class="import_image_btn">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png"
-            alt="Pluse image"
-          />
-          <span>Upload your own image</span>
-          <button>Open Image</button>
-          <input type="file" name="file" id="file_input" hidden />
-        </div>
-      </main>
-      <!-- Reset and save Button -->
-      <div class="reset_and_save_btn">
-        <button>Reset</button>
-        <button>Save</button>
-      </div>
-      <div class="zoom">
-        <!-- <input class="rounded-lg overflow-hidden appearance-none bg-gray-400 h-3 w-128" type="range" min="1" max="100" step="1" value="15" /> -->
-        <input
-          id="zoomRange"
-          class="rounded-3xl overflow-hidden appearance-none bg-blue-200 h-3 w-128"
-          type="range"
-          min="0.2"
-          max="3"
-          step="0.01"
-          value="1"
-        />
+      <div class="bg-gray-200 w-1/2">img</div>
+    </div>
+    <div class="w-full mt-10">
+      <h1 class="text-md mb-3">Discover popular features</h1>
+      <div class="flex">
+        <a class="duration-100 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-blue-400 hover:to-blue-600 w-40 px-4 py-3 text-md mr-3 rounded-md shadow-xl font-medium text-gray-700 cursor-pointer hover:text-white flex items-center" href="./Background_remover/background_remover.html" target="_blank">
+          <svg class="mr-3" viewBox="0 0 32 32"><path d="M25 8.2c-.4-.4-.9-.6-1.5-.6h-6.6v-.7c0-.5-.4-.9-.9-.9s-.9.4-.9.9v.6H8.5c-.6.1-1.1.3-1.5.7s-.7.9-.7 1.6v12.5c0 .6.2 1.1.6 1.5s.9.6 1.5.6H15v.6c0 .5.4.9.9.9s.9-.4.9-.9v-.6h6.6c.6 0 1.1-.2 1.5-.6s.6-.9.6-1.5V9.8c.2-.7 0-1.2-.5-1.6zm-9.9 14.4H8.5c-.2 0-.3-.1-.3-.3V9.8c0-.2.1-.3.3-.3h6.6v13.1zm1.8-13.2h2.7l-2.7 2.7V9.4zm6.9 12.9c0 .2-.1.3-.3.3h-2.7l3-3v2.7zm0-5.4l-5.6 5.6h-1.3v-2l6.9-6.9v3.3zm0-5.8L16.9 18v-3.1l5.4-5.4h1.2c.2 0 .3.1.3.3v1.3z" class="removeBackgroundIcon_svg__st0"></path></svg>
+          Remove Background
+        </a>
+        <a class="duration-100 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-orange-400 hover:to-orange-600 w-40 px-4 py-3 text-md mr-3 rounded-md shadow-xl font-medium text-gray-700 cursor-pointer hover:text-white flex items-center">
+          <svg class="mr-3 w-10 h-10" viewBox="0 0 32 32"><path d="M12 22.8l-1.2-.5c-.1 0-.1-.1-.1-.1l-.5-1.2c-.1-.2-.4-.2-.5 0l-.5 1.2c0 .1-.1.1-.1.1l-1.2.5c-.2.1-.2.4 0 .5l1.1.5c.1 0 .1.1.1.1l.5 1.2c.1.2.4.2.5 0l.5-1.2c0-.1.1-.1.1-.1l1.2-.5c.3-.1.3-.4.1-.5zm11.8-6.7c.1-.6-.1-1-.5-1.4l-3.1-2.8-.5-4.2c-.1-.6-.3-1-.8-1.2-.5-.3-1-.2-1.5 0l-3.6 2.1-4.2-.8c-.5-.1-1 0-1.4.4-.4.4-.5.9-.4 1.4l.8 4.1-2.1 3.6c-.3.5-.3 1 0 1.5s.7.8 1.2.8l4.2.5 2.8 3.1c.4.4.8.6 1.4.5.6-.1.9-.4 1.2-.9L19 19l3.8-1.7c.6-.2.9-.6 1-1.2zm-5.6 1.3c-.4.2-.6.4-.8.8l-1.6 3.5-2.6-2.8c-.3-.3-.6-.5-1-.5L8.4 18l1.9-3.3c.2-.3.2-.7.2-1.1l-.8-3.9 3.8.8c.4.1.7 0 1.1-.2l3.3-1.9.4 3.8c0 .4.2.7.5 1l2.8 2.6-3.4 1.6zm3.1-7.6l1 .5c.1 0 .1.1.1.1l.5 1c.1.2.4.2.5 0l.5-1c0-.1.1-.1.1-.1l1-.5c.2-.1.2-.4 0-.5l-1-.5c-.1 0-.1-.1-.1-.1l-.5-1c-.1-.2-.4-.2-.5 0l-.5 1c0 .1-.1.1-.1.1l-1 .5c-.2.2-.2.4 0 .5zM25.4 24l-3.9-3.9c-.4-.4-1-.4-1.3 0-.4.4-.4 1 0 1.3l3.9 3.9c.4.4 1 .4 1.3 0 .3-.3.3-.9 0-1.3z" class="enhancePhotoIcon_svg__st0"></path></svg>
+          Basic Filters
+        </a>
+        <a class="duration-100 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-green-400 hover:to-green-600 w-40 px-4 py-3 text-md mr-3 rounded-md shadow-xl font-medium text-gray-700 cursor-pointer hover:text-white flex items-center">
+          <svg class="mr-4 ml-1 w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M448 109.3l54.6-54.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L402.7 64 160 64v64l178.7 0L128 338.7V32c0-17.7-14.3-32-32-32S64 14.3 64 32V64H32C14.3 64 0 78.3 0 96s14.3 32 32 32H64V384c0 35.3 28.7 64 64 64H352V384H173.3L384 173.3 384 480c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H448l0-274.7z"/></svg>
+          Crop Image
+        </a>
+        <a class="duration-100 bg-gradient-to-r from-blue-100 to-blue-200 hover:from-pink-400 hover:to-pink-600 w-40 px-4 py-3 text-md mr-3 rounded-md shadow-xl font-medium text-gray-700 cursor-pointer hover:text-white flex items-center">
+          <svg class="mr-4 ml-1 w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"/></svg>
+          Drawing Board
+        </a>
       </div>
     </div>
+	</section>
+	<!-- Section 2 -->
+	<section class="w-full h-[400px] bg-gradient-to-r from-blue-300 to-blue-50 flex items-center justify-center">
+		<div class="flex">
+      <div class="w-96 bg-green-200 mr-28 rounded-xl" data-aos="fade-right"></div>
+      <div data-aos="fade-left">
+        <h1 class="text-2xl font-semibold mb-8">Simplify photo editing with our online photo editor</h1>
+        <p class="mb-2">All the tools you need for professional photo editing at your fingertips.</p>
+        <p class="mb-4">All filter you needed</p>
+        <button class="bg-[#223ce5] hover:ring-2 hover:ring-offset-1 hover:ring-blue-500 text-white px-6 py-2 rounded-md font-semibold text-base">Edit Photo</button>
+      </div>
+    </div>
+	</section>
+	<!-- Section 3 -->
+	<section  class="w-full h-[400px] bg-gradient-to-r from-pink-50 to-pink-300 flex items-center justify-center">
+		<div class="flex">
+      <div data-aos="fade-right">
+        <h1 class="text-2xl font-semibold mb-8">Simplify photo editing with our online photo editor</h1>
+        <p class="mb-2">All the tools you need for professional photo editing at your fingertips.</p>
+        <p class="mb-4">All filter you needed</p>
+        <button class="bg-[#223ce5] hover:ring-2 hover:ring-offset-1 hover:ring-blue-500 text-white px-6 py-2 rounded-md font-semibold text-base">Edit Photo</button>
+      </div>
+      <div class="w-96 bg-green-200 ml-28 rounded-xl" data-aos="fade-left"></div>
+    </div>
+	</section>
+  <!-- Section 4 -->
+	<section class="w-full h-[400px] bg-gradient-to-r from-gray-300 to-gray-50 flex items-center justify-center">
+		<div class="flex">
+      <div class="w-96 bg-green-200 mr-28 rounded-xl" data-aos="fade-right"></div>
+      <div data-aos="fade-left">
+        <h1 class="text-2xl font-semibold mb-8">Simplify photo editing with our online photo editor</h1>
+        <p class="mb-2">All the tools you need for professional photo editing at your fingertips.</p>
+        <p class="mb-4">All filter you needed</p>
+        <button class="bg-[#223ce5] hover:ring-2 hover:ring-offset-1 hover:ring-blue-500 text-white px-6 py-2 rounded-md font-semibold text-base">Edit Photo</button>
+      </div>
+    </div>
+	</section>
 
-    <script src="./JS/script.js"></script>
-    <script src="./JS/Edit_filter.js"></script>
-    <script src="./JS/Edit_basics.js"></script>
-    <!-- Cropper.js plugin  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+	<!-- Footer -->
+	<footer class="bg-black text-white h-20 flex justify-center items-center">© 2024 All Rights Reserved by www.photoEditor.com</footer>
+
+
+  <!-- aos.js -->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- JS Script -->
+  <script>
+    const dropdownButton_1 = document.getElementById('dropdown-button-1');
+    const dropdownButton_2 = document.getElementById('dropdown-button-2');
+    const dropdownButton_3 = document.getElementById('dropdown-button-3');
+    const dropdownMenu_1 = document.getElementById('dropdown-menu-1');
+    const dropdownMenu_2 = document.getElementById('dropdown-menu-2');
+    const dropdownMenu_3 = document.getElementById('dropdown-menu-3');
+
+    let isDropdown_1_Open = false;
+    let isDropdown_2_Open = false;
+    let isDropdown_3_Open = false;
+
+    // Function to toggle the dropdown
+    
+
+    // Toggle the dropdown when the button is clicked
+    dropdownButton_1.addEventListener('click', () => {
+        isDropdown_1_Open = !isDropdown_1_Open;
+        if (isDropdown_1_Open) {
+          dropdownMenu_1.classList.remove('hidden');
+        } else {
+          dropdownMenu_1.classList.add('hidden');
+        }
+    });
+    dropdownButton_2.addEventListener('click', () => {
+        isDropdown_2_Open = !isDropdown_2_Open;
+        if (isDropdown_2_Open) {
+          dropdownMenu_2.classList.remove('hidden');
+        } else {
+          dropdownMenu_2.classList.add('hidden');
+        }
+    });
+    dropdownButton_3.addEventListener('click', () => {
+        isDropdown_3_Open = !isDropdown_3_Open;
+        if (isDropdown_3_Open) {
+          dropdownMenu_3.classList.remove('hidden');
+        } else {
+          dropdownMenu_3.classList.add('hidden');
+        }
+    });
+
+    // Close the dropdown when clicking outside of it
+    window.addEventListener('click', (event) => {
+        if (!dropdownButton_1.contains(event.target) && !dropdownMenu_1.contains(event.target)) {
+            dropdownMenu_1.classList.add('hidden');
+            isDropdown_1_Open = false;
+        }
+        if (!dropdownButton_2.contains(event.target) && !dropdownMenu_2.contains(event.target)) {
+            dropdownMenu_2.classList.add('hidden');
+            isDropdown_2_Open = false;
+        }
+        if (!dropdownButton_3.contains(event.target) && !dropdownMenu_3.contains(event.target)) {
+            dropdownMenu_3.classList.add('hidden');
+            isDropdown_3_Open = false;
+        }
+    });
+
+    // Scroll to change navbar background color
+    document.addEventListener('DOMContentLoaded', function () {
+    const navbar = document.getElementById('navbar');
+
+    window.onscroll = function () {
+        if (window.pageYOffset > 0) {
+            navbar.classList.add('bg-white', 'shadow-lg');
+            navbar.classList.remove('bg-transparent');
+        } else {
+            navbar.classList.add('bg-transparent');
+            navbar.classList.remove('bg-white', 'shadow-lg');
+        }
+    };
+});
+
+// ______________________________ AOS JS library ______________________________
+AOS.init({
+        // Settings that can be overridden on per-element basis, by `data-aos-*` attributes:
+        offset: 50, // offset (in px) from the original trigger point
+        // delay: 0, // values from 0 to 3000, with step 50ms
+        duration: 500, // values from 0 to 3000, with step 50ms
+        // easing: "ease", // default easing for AOS animations
+        // once: false, // whether animation should happen only once - while scrolling down
+        // mirror: false, // whether elements should animate out while scrolling past them
+        // anchorPlacement: "top-bottom", // defines which position of the element regarding to window should
+      });
+</script>
   </body>
 </html>
