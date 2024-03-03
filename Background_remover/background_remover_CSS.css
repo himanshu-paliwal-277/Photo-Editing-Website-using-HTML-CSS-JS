@@ -1,0 +1,35 @@
+body {
+  background-image: url("https://static.fotor.com/app/features/static/media/image_no_bg.2f16922f.svg");
+  /* overflow: hidden; */
+}
+
+#original_image_bg_div {
+  background-image: linear-gradient(
+      45deg,
+      rgba(57, 76, 96, 0.15) 25%,
+      transparent 0,
+      transparent 75%,
+      rgba(57, 76, 96, 0.15) 0,
+      rgba(57, 76, 96, 0.15)
+    ),
+    linear-gradient(
+      45deg,
+      rgba(57, 76, 96, 0.15) 25%,
+      transparent 0,
+      transparent 75%,
+      rgba(57, 76, 96, 0.15) 0,
+      rgba(57, 76, 96, 0.15)
+    );
+  background-position: 0 0, 8px 8px;
+  background-size: 16px 16px;
+  background-color: #fff;
+}
+
+#zoomRange {
+  transform: scale(1);
+  cursor: grab;
+}
+
+#zoomRange:active {
+  cursor: grabbing;
+}
