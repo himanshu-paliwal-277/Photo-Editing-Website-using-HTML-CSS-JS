@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crop Image</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Favicon (Website logo) -->
+    <link rel="shortcut icon" href="../Assets/logo.png" type="image/x-icon" />
+    <!-- Cropper.js css -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="w-full h-screen bg-gray-200 overflow-hidden">
+    <!-- Navigation bar -->
+    <nav
+      id="navbar"
+      class="fixed inset-x-0 top-0 z-10 w-full px-8 py-0 bg-black shadow-md shadow-gray-500 border-slate-500 transition duration-700 ease-out"
+    >
+      <div class="flex justify-between p-4">
+        <div
+          class="text-[2rem] leading-[3rem] tracking-tight font-bold text-white flex"
+        >
+          <img class="w-12" src="../Assets/logo.png" alt="logo" />Editor
+          <div class="mx-5 w-0.5 h-6 bg-gray-200 self-center"></div>
+          <span class="text-xl self-center font-semibold text-white"
+            >Crop Image</span
+          >
+        </div>
+
+        <div
+          class="flex items-center space-x-4 text-lg font-semibold tracking-tight"
+        >
+          <button
+            class="px-5 py-2 text-base text-white transition duration-700 ease-out bg-black border border-white rounded-lg hover:bg-white hover:border hover:text-black :border-white"
+          >
+            Sign in
+          </button>
+          <button
+            class="px-5 py-2 text-base text-white transition duration-500 ease-out bg-blue-700 rounded-lg hover:bg-blue-800 hover:ease-in hover:outline hover:outline-white"
+          >
+            Sign up
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Crop image section -->
+    <section class="flex">
+      <!-- Crop tools -->
+      <aside class="w-1/3 h-screen bg-black shadow-lg shadow-black z-[1]">
+        <!-- this div is to disable the aside until user input an image -->
+        <div id="disable_aside" class="absolute w-1/4 h-full z-[2]" title="Please open an image before croping"></div>
+        <h1
+        class="opacity-90 flex items-center mt-28 text-white text-lg font-medium bg-gray-600 mx-6 py-2 px-6 rounded-lg"
+        >
+        <svg class="w-4 h-4 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M128 32c0-17.7-14.3-32-32-32S64 14.3 64 32V64H32C14.3 64 0 78.3 0 96s14.3 32 32 32H64V384c0 35.3 28.7 64 64 64H352V384H128V32zM384 480c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H448l0-256c0-35.3-28.7-64-64-64L160 64v64l224 0 0 352z"/></svg>
+          Crop
+        </h1>
+        <!-- All types of crop ratio -->
+        <div class="px-8 mt-5 flex flex-wrap">
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="ring-2 ring-offset-0 ring-blue-500 crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_freeform" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M9 3v4h13a3 3 0 0 1 2.995 2.824L25 10v13h4v2h-4v4h-2v-4H10a3 3 0 0 1-2.995-2.824L7 22V9H3V7h4V3h2zm0 6v13a1 1 0 0 0 .883.993L10 23h13V10a1 1 0 0 0-.883-.993L22 9H9z"></path></g></svg>
+              Freeform
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_1-1" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M25 3a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h18zm0 1.5H7a2.5 2.5 0 0 0-2.495 2.336L4.5 7v18a2.5 2.5 0 0 0 2.336 2.495L7 27.5h18a2.5 2.5 0 0 0 2.495-2.336L27.5 25V7a2.5 2.5 0 0 0-2.336-2.495L25 4.5z"></path></g></svg>
+              1 x 1
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-2" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z"></path></g></svg>
+              3 x 2
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_2-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z" transform="rotate(90 16 16)"></path></g></svg>
+              2 x 3
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_4-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z"></path></g></svg>
+              4 x 3
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-4" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z" transform="rotate(90 16 16)"></path></g></svg>
+              3 x 4
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_16-9" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z"></path></g></svg>
+              16 x 9
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_9-16" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z" transform="rotate(90 16 16)"></path></g></svg>
+              9 X 16
+            </div>
+          </div>
+        </div>
+        <!-- Import image btn -->
+        <!-- <div id="reUpload_image_btn" class="hidden  "> -->
+        <div id="reUpload_image_btn" class="opacity-80 flex justify-center items-center rounded-xl py-2 mt-6 mx-10 text-white relative z-[3] shadow-xl cursor-pointer hover:bg-blue-100 hover:text-blue-200 hover:bg-opacity-30 hover:border-blue-400 active:text-white active:bg-blue-300 active:bg-opacity-50 border border-dashed border-2">
+          <span class="text-2xl font-semibold mb-1">+</span>
+          <span class="mx-1">Upload</span>
+          <span>Image</span>
+        </div>
+        <!-- Apply and cancel crop button -->
+        <div class="text-white mx-10 mt-10 flex">
+          <button id="apply_button" class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3">Apply</button>
+          <button id="cancel_button" class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white">Cancel</button>
+        </div>
+      </aside>
+      <!-- Import Image Button -->
+      <main id="zoom-container" class="flex justify-center items-center w-full h-screen">
+        <div
+          id="import_image_div"
+          class="hover:shadow-xl shadow-lg border border-dashed border-gray-400 hover:border-blue-600 border-2 cursor-pointer rounded-lg bg-white hover:bg-blue-100 hover:bg-opacity-40 flex flex-col items-center justify-center w-1/2 h-72"
+        >
+          <img
+            class="w-16 opacity-50"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png"
+            alt="Pluse image"
+          />
+          <span class="text-lg">Upload your own image</span>
+          <button
+            id="import_image_btn"
+            class="px-8 py-3 bg-blue-500 hover:bg-blue-600 rounded-md text-white my-5"
+          >
+            Open Image
+          </button>
+          <input id="file_input" class="hidden" type="file" name="file" accept="image/*" />
+        </div>
+        <div id="image_div" class="hidden w-80 mt-16">
+          <img id="image" class="hidden" src="" alt="image" accept="image/*" />
+        </div>
+        <!-- Dowload Button -->
+        <button id="download_button" class="hidden flex items-center absolute right-8 bottom-6 hover:scale-105 duration-300 text-lg hover:bg-blue-800 active:bg-blue-500 text-white bg-blue-600 px-6 py-2 rounded-full">
+          <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"/></svg>
+          Download
+        </button>
+      </main>
+    </section>
+    <!-- Cropper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="./crop_image_JS.js"></script>
+  </body>
+</html>
