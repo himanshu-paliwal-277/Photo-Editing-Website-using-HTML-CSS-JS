@@ -167,7 +167,9 @@ zoomContainer.addEventListener("wheel", (e) => {
 
   if (e.deltaY < 0) {
     // Scrolling up, zoom in
-    scale += zoomSpeed;
+    if(scale < 2){
+      scale += zoomSpeed;
+    }
   } else {
     // Scrolling down, zoom out
     scale -= zoomSpeed;
