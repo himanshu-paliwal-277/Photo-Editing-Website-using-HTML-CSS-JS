@@ -34,10 +34,9 @@
           class="text-[2rem] leading-[3rem] tracking-tight font-bold text-white flex"
         >
           <img class="w-12" src="../Assets/logo.png" alt="logo" />Editor
-          <div class="mx-5 w-0.5 h-6 bg-gray-200 self-center"></div>
-          <span class="text-xl self-center font-semibold text-white"
-            >Basic Editing</span
-          >
+          <button id="open_image_button" class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 active:bg-gray-700"><svg class="mr-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g id="Icon-/-Plus" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#f0f0f0" d="M8 2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2H9v4a1 1 0 0 1-2 0V9H3a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1z"></path></g></svg>
+            Open Image
+          </button>
         </div>
         <div class="flex">
           <!-- Download Button -->
@@ -607,10 +606,12 @@
         <div class="w-[14px] flex justify-center items-center">
           <button
             id="slide_button"
-            class="flex justify-center items-center pr-1 w-full mt-10 h-20 bg-gray-800 hover:bg-gray-700 active:bg-gray-800 rounded-r-full"
+            class="flex justify-center items-center pr-1 w-full mt-10 h-20 rounded-r-full"
           >
+          <svg class="w-11 h-24 scale-x-125 scale-y-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 96" fill="#000000" color: #f0f0f0;><path d="M0,0 h1 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32 H0 z"></path><path d="M0.5,0 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32"></path></svg>
             <svg
-              class=""
+              id="slide_button_svg"
+              class="absolute opacity-70"
               xmlns="http://www.w3.org/2000/svg"
               width="6"
               height="10"
