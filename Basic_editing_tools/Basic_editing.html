@@ -21,9 +21,26 @@
         -webkit-appearance: none;
         margin: 0;
       }
+
+      #all_filters_section {
+        scrollbar-width: thin; 
+        scrollbar-color: #434f64 #1f2937;
+      }
+
+      /* #all_filters_section::-webkit-scrollbar {
+        background-color: rgb(235, 8, 8);
+      } */
+
+      /* #all_filters_section::-webkit-scrollbar-track {
+        background: #dd2121;
+      } */
+
+      /* #all_filters_section::-webkit-scrollbar-thumb {
+        background: #e70909;
+      } */
     </style>
   </head>
-  <body class="w-full h-screen bg-gray-200 overflow-hidden">
+  <body class="w-full h-screen bg-gray-200 overflow-hidden"> <!-- overflow-hidden -->
     <!-- Navigation bar -->
     <nav
       id="navbar"
@@ -34,8 +51,9 @@
           class="text-[2rem] leading-[3rem] tracking-tight font-bold text-white flex"
         >
           <img class="w-12" src="../Assets/logo.png" alt="logo" />Editor
-          <button id="open_image_button" class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 active:bg-gray-700"><svg class="mr-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g id="Icon-/-Plus" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#f0f0f0" d="M8 2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2H9v4a1 1 0 0 1-2 0V9H3a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1z"></path></g></svg>
+          <button id="open_image_button" class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 hover:ring-2 hover:ring-offset-0 hover:ring-blue-500 active:bg-gray-700"><svg class="mr-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g id="Icon-/-Plus" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#f0f0f0" d="M8 2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2H9v4a1 1 0 0 1-2 0V9H3a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1z"></path></g></svg>
             Open Image
+            <input type="file" name="image" id="re_upload_image_input" accept="image/*" hidden>
           </button>
         </div>
         <div class="flex">
@@ -178,7 +196,7 @@
         <div
           style="width: 350px"
           id="edit_section"
-          class="bg-gray-800 duration-500"
+          class="bg-gray-800 duration-500 h-screen"
         >
           <div id="edit_section_inside_div" class="">
             <!-- Adjust edit section -->
@@ -288,6 +306,62 @@
                 </svg>
                 Crop
               </h1>
+              <!-- All types of crop ratio -->
+        <div class="px-8 mt-5 flex flex-wrap">
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="ring-2 ring-offset-0 ring-blue-500 crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_freeform" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M9 3v4h13a3 3 0 0 1 2.995 2.824L25 10v13h4v2h-4v4h-2v-4H10a3 3 0 0 1-2.995-2.824L7 22V9H3V7h4V3h2zm0 6v13a1 1 0 0 0 .883.993L10 23h13V10a1 1 0 0 0-.883-.993L22 9H9z"></path></g></svg>
+              Freeform
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_1-1" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M25 3a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h18zm0 1.5H7a2.5 2.5 0 0 0-2.495 2.336L4.5 7v18a2.5 2.5 0 0 0 2.336 2.495L7 27.5h18a2.5 2.5 0 0 0 2.495-2.336L27.5 25V7a2.5 2.5 0 0 0-2.336-2.495L25 4.5z"></path></g></svg>
+              1 x 1
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-2" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z"></path></g></svg>
+              3 x 2
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_2-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z" transform="rotate(90 16 16)"></path></g></svg>
+              2 x 3
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_4-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z"></path></g></svg>
+              4 x 3
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-4" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z" transform="rotate(90 16 16)"></path></g></svg>
+              3 x 4
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_16-9" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z"></path></g></svg>
+              16 x 9
+            </div>
+          </div>
+          <div class="w-1/3 h-20 p-1 cursor-pointer">
+            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
+            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_9-16" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z" transform="rotate(90 16 16)"></path></g></svg>
+              9 X 16
+            </div>
+          </div>
+        </div>
+        <!-- Apply and cancel crop button -->
+        <div class="text-white mx-10 mt-10 flex">
+          <button id="apply_button" class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3">Apply</button>
+          <button id="cancel_button" class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white">Cancel</button>
+        </div>
             </section>
             <!-- Rotate edit section -->
             <section class="all_editing_section hidden">
@@ -375,7 +449,7 @@
               <div class="mx-10 mt-2 text-gray-200 text-sm">
                 <div
                   id="flip_div"
-                  class="flex items-center justify-between bg-gray-700 rounded-sm px-4 py-2 hover:ring-1 hover:ring-offset-0 hover:ring-blue-500"
+                  class="flex items-center justify-between cursor-pointer bg-gray-700 rounded-sm px-4 py-2 hover:ring-1 hover:ring-offset-0 hover:ring-blue-500"
                 >
                   <div class="flex items-center">
                     <svg
@@ -448,7 +522,7 @@
               <div class="mx-10 mt-2 text-gray-200 text-sm">
                 <div
                   id="resize_div"
-                  class="flex items-center justify-between bg-gray-700 rounded-sm px-4 py-2 hover:ring-1 hover:ring-offset-0 hover:ring-blue-500"
+                  class="flex items-center justify-between cursor-pointer bg-gray-700 rounded-sm px-4 py-2 hover:ring-1 hover:ring-offset-0 hover:ring-blue-500"
                 >
                   <div class="flex items-center">
                     <svg
@@ -511,7 +585,7 @@
               </div>
             </section>
             <!-- Filters edit section -->
-            <section class="all_editing_section hidden">
+            <section class="all_editing_section hidden h-screen">
               <h1
                 class="opacity-90 flex items-center mt-[100px] mb-10 text-white text-lg font-medium bg-gray-600 mx-6 py-2 px-6 rounded-lg"
               >
@@ -528,39 +602,47 @@
                 </svg>
                 Filter
               </h1>
-              <div id="all_filters_section" class="flex flex-wrap px-8">
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 1">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+              <div id="all_filters_section" class=" px-8 h-[70vh] w-full  overflow-y-scroll"> <!--flex flex-wrap-->
+                <div class="flex">
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 1">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 2">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 3">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
                 </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 2">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                <div class="flex">
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 4">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 5">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 6">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
                 </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 3">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                <div class="flex">
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 7">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
+                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
+                    <img class="rounded-md" src="" alt="filtered image 8">
+                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  </div>
                 </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 4">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
-                </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 5">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
-                </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 6">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
-                </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 7">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
-                </div>
-                <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                  <img class="rounded-md" src="" alt="filtered image 8">
-                  <span class="text-gray-200 text-sm flex justify-center my-2"></span>
-                </div>
+                <!-- this div for resolve Overflow issue -->
+                <div class="w-full h-20"></div>
               </div>
             </section>
             <!-- Frame edit section -->
@@ -581,7 +663,43 @@
                 </svg>
                 Frame
               </h1>
+              <div class="mx-10 mt-5 h-screen text-sm text-gray-200">
+                <div class="flex justify-between py-2">
+                  <span class="">Border Size</span>
+                  <span id="border_size_value_span">0</span>
+                </div>
+                <input
+                  id="border_size_input"
+                  type="range"
+                  class="w-full h-[3px] bg-red-600 rounded-lg cursor-pointer opacity-100"
+                  min="0"
+                  max="50"
+                  step="1"
+                  value="0"
+                />
+                <div class="flex mt-6">
+                  <input id="border_color_input" hidden type="color" name="" id="">
+                  <div onclick="border_color_input.click()" class="flex justify-center items-center ml-5">
+                    <img class="absolute w-[34px] h-[34px] rounded-md cursor-pointer" src="https://www.fotor.com/photo-editor-app/img/color.png" alt="color picker image">
+                    <svg class="absolute w-4 h-4 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#f0f0f0" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                  </div>
+                  <div onclick="setBorderColor_1()" class="bg-[#c8c8c8] ml-6 w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div onclick="setBorderColor_2()" class="bg-[#000000] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div onclick="setBorderColor_3()" class="bg-[#0f77ff] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div onclick="setBorderColor_4()" class="bg-[#5ca644] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div onclick="setBorderColor_5()" class="bg-[#ffd23a] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div onclick="setBorderColor_6()" class="bg-[#93c5fd] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                </div>
+                <div>
+                  <div class="flex justify-between py-2 mt-6">
+                    <span class="">Border Radius</span>
+                    <span id="border_radius_value_span">0</span>
+                  </div>
+                  <input id="border_radius_input" type="range" class="w-full h-[3px] bg-red-600 rounded-lg cursor-pointer opacity-100" min="0" max="30" step="1" value="0" />
+                </div>
+              </div>
             </section>
+            <!-- AI section -->
             <section class="all_editing_section hidden">
               <h1
                 class="opacity-90 flex items-center mt-[100px] mb-10 text-white text-lg font-medium bg-gray-600 mx-6 py-2 px-6 rounded-lg"
@@ -629,7 +747,7 @@
       <!-- Main editing area (section) -->
       <main
         id="zoom-container"
-        class="flex justify-center items-center w-full h-screen"
+        class="flex justify-center items-center w-full h-screen overflow-hidden"
       >
         <!-- Import Image Button -->
         <div
@@ -639,7 +757,7 @@
           <img
             class="w-16 opacity-50"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Plus_symbol.svg/1200px-Plus_symbol.svg.png"
-            alt="Pluse image"
+            alt="Plus image"
           />
           <span class="text-lg">Upload your own image</span>
           <button
@@ -659,7 +777,7 @@
         <div id="image_div" class="hidden w-80 mt-16 flex justify-center items-center">
           <img
             id="image"
-            class="duration-300"
+            class="duration-300 border box-content"
             src=""
             alt="image"
             accept="image/*"
@@ -669,6 +787,7 @@
         <!-- Zoom button -->
         <div
           class="absolute flex items-center justify-center bottom-3 right-8 w-40 py-2 bg-white rounded-full"
+          title="ctrl + wheel to zoom in & zoom out"
         >
           <svg
             id="zoom_out_button"
