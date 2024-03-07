@@ -24,7 +24,9 @@ let reset_adjustment_button = document.getElementById(
   "reset_adjustment_button"
 );
 // reset rotate, flip and resize button
-let reset_rotate_flip_resize_button = document.getElementById("reset_rotate_flip_resize_button");
+let reset_rotate_flip_resize_button = document.getElementById(
+  "reset_rotate_flip_resize_button"
+);
 
 // rotate button & flip button
 let rotate_right_btn = document.getElementById("rotate_right_btn");
@@ -67,6 +69,9 @@ let image_width;
 let image_heigth;
 let default_image_width;
 let default_image_height;
+let border_width = 0;
+let border_color = "#f0f0f0";
+let border_radius = 0;
 
 slide_button.addEventListener("click", () => {
   if (slide_button_svg.classList.contains("rotate-180")) {
@@ -145,13 +150,26 @@ file_input.addEventListener("change", function () {
 
   // Set width and height of image to resize input_width and input_height
   setTimeout(() => {
-    input_width.value = image.offsetWidth;
-    input_height.value = image.offsetHeight;
-    image_width = input_width.value;
-    image_heigth = input_height.value;
+    input_width.value = image.width;
+    input_height.value = image.height;
+    image_width = image.width;
+    image_heigth = image.height;
     default_image_width = image_width;
     default_image_height = image_heigth;
   }, 200);
+
+  // Reset all styling
+  for (let styleName of image.style) {
+    image.style[styleName] = "";
+  }
+  rotate_value = 0;
+  flip_vertical_value = 1;
+  flip_horizontal_value = 1;
+  border_radius = 0;
+  border_width = 0;
+  image.style.borderWidth = "0px";
+  image.style.borderRadius = "0px";
+  image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
 });
 
 // ----------------------Zoom in Zoom out feature----------------------
@@ -160,10 +178,11 @@ let scale = 1; // Initial scale value
 
 const zoomSpeed = 0.1; // Control the speed of zooming
 
-zoomContainer.addEventListener("wheel", (e) => {
-  e.preventDefault(); // Prevent the page from scrolling
+zoomContainer.addEventListener("wheel", (event) => {
+  if(event.ctrlKey){
+  event.preventDefault(); // Prevent the page from scrolling
 
-  if (e.deltaY < 0) {
+  if (event.deltaY < 0) {
     // Scrolling up, zoom in
     if (scale < 2) {
       scale += zoomSpeed;
@@ -184,6 +203,7 @@ zoomContainer.addEventListener("wheel", (e) => {
   document.getElementById(
     "zoom_in_zoom_out_value"
   ).innerHTML = `${scale.toFixed(1)}%`;
+}
 });
 
 // zoom in / zoom out button
@@ -256,7 +276,7 @@ invert_button.addEventListener("click", () => {
     invert_toggle_btn.classList.add("bg-blue-600");
     invert_toggle_btn.classList.add("flex-row-reverse");
     invert_value = 1;
-  }                     
+  }
   image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
 });
 
@@ -327,7 +347,7 @@ let input_height = document.getElementById("input_height");
 image.style.width = `${image_width}px`;
 image.style.height = `${image_heigth}px`;
 
-input_width.addEventListener("input", function() {
+input_width.addEventListener("input", function () {
   image_width = this.value;
   if (image_width > 0) {
     image.style.width = `${image_width}px`;
@@ -335,7 +355,7 @@ input_width.addEventListener("input", function() {
   }
 });
 
-input_height.addEventListener("input", function() {
+input_height.addEventListener("input", function () {
   image_heigth = this.value;
   if (image_heigth > 0) {
     image.style.height = `${image_heigth}px`;
@@ -402,7 +422,9 @@ flip_div.addEventListener("click", () => {
 });
 
 let all_filtered_images = document.querySelectorAll("#all_filters_section img");
-let all_filtered_images_name = document.querySelectorAll("#all_filters_section span");
+let all_filtered_images_name = document.querySelectorAll(
+  "#all_filters_section span"
+);
 
 // filterd img of filters section
 all_selected_edit_box[3].addEventListener("click", () => {
@@ -410,7 +432,7 @@ all_selected_edit_box[3].addEventListener("click", () => {
     img.src = image.src;
     img.style.filter = `${filters[index].filter_value}`;
     img.addEventListener("click", () => {
-      switch(index){
+      switch (index) {
         case 0:
           brightness_value = 100;
           contrast_value = 100;
@@ -419,48 +441,111 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = 0;
+          brightness_input.value = 100;
+          contrast_input.value = 100;
+          saturation_input.value = 100;
+          blur_input.value = 0;
+          document.getElementById("brightness_value").innerHTML = `${
+            brightness_value - 100
+          }`;
+          document.getElementById("contrast_value").innerHTML = `${
+            contrast_value - 100
+          }`;
+          document.getElementById("saturation_value").innerHTML = `${
+            saturation_value - 100
+          }`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 1:
+          brightness_value = 100;
+          contrast_value = 100;
+          saturation_value = 100;
+          blur_value = 0;
+          invert_value = 0;
           grayscale_value = filters[1].value;
-          image.style.filter = `grayscale(${grayscale_value}%)`;
+          sepia_value = 0;
+          // image.style.filter = `grayscale(${grayscale_value}%)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 2:
+          brightness_value = 100;
+          contrast_value = 100;
+          saturation_value = 100;
+          blur_value = 0;
+          invert_value = 0;
+          grayscale_value = 0;
           sepia_value = filters[2].value;
-          image.style.filter = `sepia(${sepia_value}%)`;
+          // image.style.filter = `sepia(${sepia_value}%)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 3:
           brightness_value = filters[3].value;
-          image.style.filter = `brightness(${brightness_value}%)`;
+          contrast_value = 100;
+          saturation_value = 100;
+          blur_value = 0;
+          invert_value = 0;
+          grayscale_value = 0;
+          sepia_value = 0;
+          // image.style.filter = `brightness(${brightness_value}%)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 4:
+          brightness_value = 100;
           contrast_value = filters[4].value;
-          image.style.filter = `contrast(${contrast_value}%)`;
+          saturation_value = 100;
+          blur_value = 0;
+          invert_value = 0;
+          grayscale_value = 0;
+          sepia_value = 0;
+          // image.style.filter = `contrast(${contrast_value}%)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 5:
+          brightness_value = 100;
+          contrast_value = 100;
+          saturation_value = 100;
+          blur_value = 0;
           invert_value = filters[5].value;
-          image.style.filter = `invert(${invert_value})`;
+          grayscale_value = 0;
+          sepia_value = 0;
+          // image.style.filter = `invert(${invert_value})`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 6:
+          brightness_value = 100;
+          contrast_value = 100;
           saturation_value = filters[6].value;
-          image.style.filter = `saturate(${saturation_value}%)`;
+          blur_value = 0;
+          invert_value = 0;
+          grayscale_value = 0;
+          sepia_value = 0;
+          // image.style.filter = `saturate(${saturation_value}%)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 7:
+          brightness_value = 100;
+          contrast_value = 100;
+          saturation_value = 100;
           blur_value = filters[7].value;
-          image.style.filter = `blur(${blur_value}px)`;
+          invert_value = 0;
+          grayscale_value = 0;
+          sepia_value = 0;
+          // image.style.filter = `blur(${blur_value}px)`;
+          image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
       }
-    })
-  })
-  
+    });
+  });
+
   all_filtered_images_name.forEach((span_name, index) => {
     span_name.innerHTML = `${filters[index].name}`;
-  })
-})
-
+  });
+});
 
 // resize_width_and_height_input_number_div
-let resize_width_and_height_input_number_div = document.getElementById("resize_width_and_height_input_number_div");
+let resize_width_and_height_input_number_div = document.getElementById(
+  "resize_width_and_height_input_number_div"
+);
 
 // Resize div drop down feature
 resize_div.addEventListener("click", () => {
@@ -481,52 +566,278 @@ resize_div.addEventListener("click", () => {
   }
 });
 
+// Border (frame) feature
+// border width input
+let border_size_input = document.getElementById("border_size_input");
+let border_size_value_span = document.getElementById("border_size_value_span");
+// Border radius input
+let border_radius_input = document.getElementById("border_radius_input");
+let border_radius_value_span = document.getElementById(
+  "border_radius_value_span"
+);
+// border color input
+let border_color_input = document.getElementById("border_color_input");
+
+image.style.borderWidth = `${border_width}px`;
+border_size_input.addEventListener("input", function () {
+  border_width = this.value;
+  border_size_value_span.innerHTML = `${border_width}`;
+  image.style.borderWidth = `${border_width}px`;
+  // console.log("border_width = ", border_width);
+  image.style.borderColor = `${border_color}`;
+});
+
+border_color_input.addEventListener("input", function () {
+  border_color = this.value;
+  image.style.borderColor = `${border_color}`;
+  // alert(border_color);
+});
+
+function setBorderColor_1() {
+  border_color = "#c8c8c8";
+  image.style.borderColor = `${border_color}`;
+}
+function setBorderColor_2() {
+  border_color = "#000000";
+  image.style.borderColor = `${border_color}`;
+}
+function setBorderColor_3() {
+  border_color = "#0f77ff";
+  image.style.borderColor = `${border_color}`;
+}
+function setBorderColor_4() {
+  border_color = "#5ca644";
+  image.style.borderColor = `${border_color}`;
+}
+function setBorderColor_5() {
+  border_color = "#ffd23a";
+  image.style.borderColor = `${border_color}`;
+}
+function setBorderColor_6() {
+  border_color = "#93c5fd";
+  image.style.borderColor = `${border_color}`;
+}
+
+// Border radius input
+border_radius_input.addEventListener("input", function () {
+  border_radius = this.value;
+  border_radius_value_span.innerHTML = `${border_radius}`;
+  image.style.borderRadius = `${border_radius}px`;
+});
+
 // reset adjustment button
 reset_adjustment_button.addEventListener("click", reset_adjustment);
 
 // reset rotate, flip & resize function
-function reset_rotate_flip_resize(){
+function reset_rotate_flip_resize() {
   rotate_value = 0;
   flip_horizontal_value = 1;
   flip_vertical_value = 1;
   image_width = default_image_width;
   image_heigth = default_image_height;
+  input_width.value = default_image_width;
+  input_height.value = default_image_height;
   image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
   image.style.width = `${image_width}px`;
   image.style.height = `${image_heigth}px`;
 }
 
 // reset rotate, flip and resize
-reset_rotate_flip_resize_button.addEventListener("click", reset_rotate_flip_resize);
+reset_rotate_flip_resize_button.addEventListener(
+  "click",
+  reset_rotate_flip_resize
+);
+
+// -------------------------------Image Crop Feature-----------------------------------
+let All_crop_ratio = document.querySelectorAll(".crop_ratio");
+let apply_button = document.getElementById("apply_button");
+let cancel_button = document.getElementById("cancel_button");
+let cropper;
+let croped_image_canvas;
+
+all_selected_edit_box[1].addEventListener("click", () => {
+  cropper = new Cropper(image, {
+    aspectRatio: NaN,
+  });
+})
+
+// crop ratio
+let x;
+let y;
+
+function apply_crop() {
+  croped_image_canvas = cropper.getCroppedCanvas({
+    width: 510,
+    height: 300,
+  });
+  image.src = croped_image_canvas.toDataURL();
+  cropper.destroy();
+  // Change the image_width and image_heigth
+  image_width = croped_image_canvas.width;
+  image_heigth = croped_image_canvas.height;
+}
+
+function cancel_crop() {
+  cropper.destroy();
+  All_crop_ratio.forEach((crop_ratio) => {
+    crop_ratio.classList.remove("ring-2");
+    crop_ratio.classList.remove("ring-offset-0");
+    crop_ratio.classList.remove("ring-blue-500");
+  });
+}
+
+apply_button.addEventListener("click", apply_crop);
+cancel_button.addEventListener("click", cancel_crop);
+
+All_crop_ratio.forEach((crop_ratio, index) => {
+  crop_ratio.addEventListener("click", () => {
+    crop_ratio.classList.add("ring-2");
+    crop_ratio.classList.add("ring-offset-0");
+    crop_ratio.classList.add("ring-blue-500");
+    switch (index) {
+      case 0:
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: NaN,
+        });
+        break;
+      case 1:
+        x = 1;
+        y = 1;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 2:
+        x = 3;
+        y = 2;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 3:
+        x = 2;
+        y = 3;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 4:
+        x = 4;
+        y = 3;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 5:
+        x = 3;
+        y = 4;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 6:
+        x = 16;
+        y = 9;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+      case 7:
+        x = 9;
+        y = 16;
+        cropper.destroy();
+        cropper = new Cropper(image, {
+          aspectRatio: x / y,
+        });
+        break;
+    }
+
+    All_crop_ratio.forEach((element, i) => {
+      if (index !== i) {
+        element.classList.remove("ring-2");
+        element.classList.remove("ring-offset-0");
+        element.classList.remove("ring-blue-500");
+      }
+    });
+  });
+});
+// -------------------------------Image Crop Feature-----------------------------------
+
+// ---------------------------------------------------------------
+// Function to apply border-radius in image
+function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
+  ctx.beginPath();
+  ctx.moveTo(x + borderRadius, y);
+  ctx.lineTo(x + width - borderRadius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
+  ctx.lineTo(x + width, y + height - borderRadius);
+  ctx.quadraticCurveTo(
+    x + width,
+    y + height,
+    x + width - borderRadius,
+    y + height
+  );
+  ctx.lineTo(x + borderRadius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
+  ctx.lineTo(x, y + borderRadius);
+  ctx.quadraticCurveTo(x, y, x + borderRadius, y);
+  ctx.closePath();
+  ctx.clip();
+}
+// ---------------------------------------------------------------
 
 // download image function
 function download_image() {
   // if (confirm("Do you want to download an image")) {
-    let canvas = document.createElement("canvas");
-    let ctx = canvas.getContext("2d");
-    // Apply rotate when rotate value 90, 270, 450...
-    if(rotate_value % 180 !== 0 && rotate_value !== 0){
-      [image_width, image_heigth] = [image_heigth, image_width];
-    }
-    // Apply width and height :-
-    // After adding a resize image feature // logic before adding resize feature
-    canvas.width = image_width; // canvas.width = image.naturalWidth;
-    canvas.height = image_heigth; // canvas.height = image.naturalHeight;
-    // apply filters :-
-    ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
-    // apply border radius
-    // clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, round_value);
-    // apply - Backgound color
-    // ctx.fillStyle = color_value;
-    ctx.translate(image_width / 2, image_heigth / 2);
-    // apply - rotate :-
-    ctx.rotate(rotate_value * Math.PI / 180);
-    // ----------------Ex----------------
-    // remove this and add below section
-    // ctx.fillRect(0, 0, image_width, image_heigth);
-    // ----------------Ex----------------
-    // apply - flip
-    ctx.scale(flip_vertical_value,flip_horizontal_value);
+  let canvas = document.createElement("canvas");
+  let ctx = canvas.getContext("2d");
+  // Apply rotate when rotate value 90, 270, 450...
+  let isRotated = false;
+  if (Math.abs(rotate_value) % 180 !== 0 && rotate_value !== 0) {
+    [image_width, image_heigth] = [image_heigth, image_width];
+    isRotated = true;
+  }
+  // Apply width and height :-
+  // After adding a resize image feature // logic before adding resize feature
+  // ---------------------
+  let borderWidth = parseInt(border_width);
+  // ---------------------
+  canvas.width = image_width + borderWidth * 2; // canvas.width = image.naturalWidth;
+  canvas.height = image_heigth + borderWidth * 2; // canvas.height = image.naturalHeight;
+  // apply border radius
+  clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, border_radius);
+  // ----------------Ex----------------
+  // Fill background (border area) with the specified color
+  // let borderColor = '#f0f';
+  ctx.fillStyle = border_color;
+  // ----------------Ex----------------
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // apply filters :-
+  ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
+  // apply - Backgound color
+  // ctx.fillStyle = color_value;
+  // ctx.translate(image_width / 2, image_heigth / 2);
+  ctx.translate(image_width / 2 + borderWidth, image_heigth / 2 + borderWidth);
+  // apply - rotate :-
+  ctx.rotate((rotate_value * Math.PI) / 180);
+  // apply - flip
+  ctx.scale(flip_vertical_value, flip_horizontal_value);
+  if (isRotated === true) {
+    ctx.drawImage(
+      image,
+      -image_heigth / 2,
+      -image_width / 2,
+      image_heigth,
+      image_width
+    );
+  } else {
     ctx.drawImage(
       image,
       -image_width / 2,
@@ -534,31 +845,18 @@ function download_image() {
       image_width,
       image_heigth
     );
-    // --------------------Ex---------------------add
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    // --------------------Ex---------------------
+  }
+  // --------------------Ex---------------------
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // --------------------Ex---------------------
 
-    // ---------------------------------------------------------------
-    // Function to apply border-radius in image_src
-    // function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
-    //     ctx.beginPath();
-    //     ctx.moveTo(x + borderRadius, y);
-    //     ctx.lineTo(x + width - borderRadius, y);
-    //     ctx.quadraticCurveTo(x + width, y, x + width, y + borderRadius);
-    //     ctx.lineTo(x + width, y + height - borderRadius);
-    //     ctx.quadraticCurveTo(x + width, y + height, x + width - borderRadius, y + height);
-    //     ctx.lineTo(x + borderRadius, y + height);
-    //     ctx.quadraticCurveTo(x, y + height, x, y + height - borderRadius);
-    //     ctx.lineTo(x, y + borderRadius);
-    //     ctx.quadraticCurveTo(x, y, x + borderRadius, y);
-    //     ctx.closePath();
-    //     ctx.clip();
-    // }
-    // ---------------------------------------------------------------
-    const link = document.createElement("a");
-    link.download = "image.jpg";
-    link.href = canvas.toDataURL();
-    link.click();
+  // --------------Download image logic----------------
+  const link = document.createElement("a");
+  link.download = "image.jpg";
+  link.href = canvas.toDataURL();
+  link.click();
+  // --------------Download image logic----------------
+  // document.querySelector("main").appendChild(canvas);
   // }
 }
 
@@ -566,21 +864,20 @@ function download_image() {
 function download_image_chatGPT() {
   // const img = imageContainer.querySelector('img');
   // if (!img) return; // No image, do nothing
-  
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
   const imgElement = new Image();
 
   // Ensure cross-origin images can be loaded
-  imgElement.crossOrigin = 'anonymous';
-  
-  imgElement.onload = function() {
+  imgElement.crossOrigin = "anonymous";
+
+  imgElement.onload = function () {
     canvas.width = imgElement.width;
     canvas.height = imgElement.height;
 
     ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
 
-    
     // Correct the canvas size based on the rotation
     if (rotate_value % 180 === 90) {
       canvas.width = imgElement.height;
@@ -590,17 +887,17 @@ function download_image_chatGPT() {
     // Set the origin to the center of the canvas
     ctx.translate(canvas.width / 2, canvas.height / 2);
     // Rotate the canvas
-    ctx.rotate(rotate_value * Math.PI / 180);
+    ctx.rotate((rotate_value * Math.PI) / 180);
     // Draw the image on the rotated context
     ctx.drawImage(imgElement, -imgElement.width / 2, -imgElement.height / 2);
-    
+
     // Convert canvas to image and download
-    const link = document.createElement('a');
-    link.download = 'rotated-image.png';
+    const link = document.createElement("a");
+    link.download = "rotated-image.png";
     link.href = canvas.toDataURL();
     link.click();
   };
-  
+
   imgElement.src = image.src;
   // }
 }
@@ -612,4 +909,4 @@ download_button.addEventListener("click", download_image);
 
 // -----for now i hide all edit section and unhide rotate edit section-------
 all_editing_section[0].classList.add("hidden");
-all_editing_section[3].classList.remove("hidden");
+all_editing_section[1].classList.remove("hidden");
