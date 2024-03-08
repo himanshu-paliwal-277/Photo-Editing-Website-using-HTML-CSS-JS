@@ -23,24 +23,41 @@
       }
 
       #all_filters_section {
-        scrollbar-width: thin; 
+        scrollbar-width: thin;
         scrollbar-color: #434f64 #1f2937;
       }
 
-      /* #all_filters_section::-webkit-scrollbar {
-        background-color: rgb(235, 8, 8);
-      } */
+      #bg_remover_div {
+        background-image: url('../Assets/sample_image_bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      #bg_remover_div_of_main_section {
+        background-image: url('../Assets/sample_image_bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      #bg_remover_div .background_remove_animation {
+        animation: bg_remove_animation 2s forwards;
+        animation-delay: 0.5s;
+        animation-iteration-count: infinite;
+      }
 
-      /* #all_filters_section::-webkit-scrollbar-track {
-        background: #dd2121;
-      } */
-
-      /* #all_filters_section::-webkit-scrollbar-thumb {
-        background: #e70909;
-      } */
+      @keyframes bg_remove_animation {
+        0%{
+          width: 100%;
+        }
+        30%{
+          width: 100%;
+        }
+        100%{
+          width: 0%;
+        }
+      }
     </style>
   </head>
-  <body class="w-full h-screen bg-gray-200 overflow-hidden"> <!-- overflow-hidden -->
+  <body class="w-full h-screen bg-gray-200 overflow-hidden">
+    <!-- overflow-hidden -->
     <!-- Navigation bar -->
     <nav
       id="navbar"
@@ -51,9 +68,36 @@
           class="text-[2rem] leading-[3rem] tracking-tight font-bold text-white flex"
         >
           <img class="w-12" src="../Assets/logo.png" alt="logo" />Editor
-          <button id="open_image_button" class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 hover:ring-2 hover:ring-offset-0 hover:ring-blue-500 active:bg-gray-700"><svg class="mr-3" width="16" height="16" xmlns="http://www.w3.org/2000/svg"><g id="Icon-/-Plus" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#f0f0f0" d="M8 2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2H9v4a1 1 0 0 1-2 0V9H3a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1z"></path></g></svg>
+          <button
+            id="open_image_button"
+            class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 hover:ring-2 hover:ring-offset-0 hover:ring-blue-500 active:bg-gray-700"
+          >
+            <svg
+              class="mr-3"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                id="Icon-/-Plus"
+                stroke="none"
+                stroke-width="1"
+                fill-rule="evenodd"
+              >
+                <path
+                  fill="#f0f0f0"
+                  d="M8 2a1 1 0 0 1 1 1v4h4a1 1 0 0 1 0 2H9v4a1 1 0 0 1-2 0V9H3a1 1 0 1 1 0-2h4V3a1 1 0 0 1 1-1z"
+                ></path>
+              </g>
+            </svg>
             Open Image
-            <input type="file" name="image" id="re_upload_image_input" accept="image/*" hidden>
+            <input
+              type="file"
+              name="image"
+              id="re_upload_image_input"
+              accept="image/*"
+              hidden
+            />
           </button>
         </div>
         <div class="flex">
@@ -178,16 +222,11 @@
           <div
             class="all_selected_edit_box flex flex-col justify-center items-center opacity-80 hover:opacity-100 text-[0.8rem] text-white w-[54px] h-[54px] cursor-pointer hover:bg-gray-700 rounded-lg"
           >
-            <svg
-              class="w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill="#ffffff"
-                d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z"
-              />
-            </svg>
+            <img
+              class="w-5 h-5 invert"
+              src="../Assets/blur.png"
+              alt="ai image"
+            />
             <span class="mt-1">AI</span>
           </div>
         </div>
@@ -307,61 +346,234 @@
                 Crop
               </h1>
               <!-- All types of crop ratio -->
-        <div class="px-8 mt-5 flex flex-wrap">
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="ring-2 ring-offset-0 ring-blue-500 crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_freeform" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M9 3v4h13a3 3 0 0 1 2.995 2.824L25 10v13h4v2h-4v4h-2v-4H10a3 3 0 0 1-2.995-2.824L7 22V9H3V7h4V3h2zm0 6v13a1 1 0 0 0 .883.993L10 23h13V10a1 1 0 0 0-.883-.993L22 9H9z"></path></g></svg>
-              Freeform
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_1-1" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M25 3a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h18zm0 1.5H7a2.5 2.5 0 0 0-2.495 2.336L4.5 7v18a2.5 2.5 0 0 0 2.336 2.495L7 27.5h18a2.5 2.5 0 0 0 2.495-2.336L27.5 25V7a2.5 2.5 0 0 0-2.336-2.495L25 4.5z"></path></g></svg>
-              1 x 1
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-2" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z"></path></g></svg>
-              3 x 2
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_2-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z" transform="rotate(90 16 16)"></path></g></svg>
-              2 x 3
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_4-3" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z"></path></g></svg>
-              4 x 3
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_3-4" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z" transform="rotate(90 16 16)"></path></g></svg>
-              3 x 4
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_16-9" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z"></path></g></svg>
-              16 x 9
-            </div>
-          </div>
-          <div class="w-1/3 h-20 p-1 cursor-pointer">
-            <div class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center">
-            <svg class="my-1" width="32" height="32" xmlns="http://www.w3.org/2000/svg" class="crop_size_select_grid_item_icon"><g id="Icon-/-crop-/-crop_9-16" stroke="none" stroke-width="1" fill-rule="evenodd"><path fill="#ffffff" d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z" transform="rotate(90 16 16)"></path></g></svg>
-              9 X 16
-            </div>
-          </div>
-        </div>
-        <!-- Apply and cancel crop button -->
-        <div class="text-white mx-10 mt-10 flex">
-          <button id="apply_button" class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3">Apply</button>
-          <button id="cancel_button" class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white">Cancel</button>
-        </div>
+              <div class="px-8 mt-5 flex flex-wrap">
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="ring-2 ring-offset-0 ring-blue-500 crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_freeform"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M9 3v4h13a3 3 0 0 1 2.995 2.824L25 10v13h4v2h-4v4h-2v-4H10a3 3 0 0 1-2.995-2.824L7 22V9H3V7h4V3h2zm0 6v13a1 1 0 0 0 .883.993L10 23h13V10a1 1 0 0 0-.883-.993L22 9H9z"
+                        ></path>
+                      </g>
+                    </svg>
+                    Freeform
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_1-1"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M25 3a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4h18zm0 1.5H7a2.5 2.5 0 0 0-2.495 2.336L4.5 7v18a2.5 2.5 0 0 0 2.336 2.495L7 27.5h18a2.5 2.5 0 0 0 2.495-2.336L27.5 25V7a2.5 2.5 0 0 0-2.336-2.495L25 4.5z"
+                        ></path>
+                      </g>
+                    </svg>
+                    1 x 1
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_3-2"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z"
+                        ></path>
+                      </g>
+                    </svg>
+                    3 x 2
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_2-3"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M26 7a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V11a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 11v10a2.5 2.5 0 0 0 2.336 2.495L6 23.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 21V11a2.5 2.5 0 0 0-2.336-2.495L26 8.5z"
+                          transform="rotate(90 16 16)"
+                        ></path>
+                      </g>
+                    </svg>
+                    2 x 3
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_4-3"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z"
+                        ></path>
+                      </g>
+                    </svg>
+                    4 x 3
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_3-4"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M27 5a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H5a4 4 0 0 1-4-4V9a4 4 0 0 1 4-4h22zm0 1.5H5a2.5 2.5 0 0 0-2.495 2.336L2.5 9v14a2.5 2.5 0 0 0 2.336 2.495L5 25.5h22a2.5 2.5 0 0 0 2.495-2.336L29.5 23V9a2.5 2.5 0 0 0-2.336-2.495L27 6.5z"
+                          transform="rotate(90 16 16)"
+                        ></path>
+                      </g>
+                    </svg>
+                    3 x 4
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_16-9"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z"
+                        ></path>
+                      </g>
+                    </svg>
+                    16 x 9
+                  </div>
+                </div>
+                <div class="w-1/3 h-20 p-1 cursor-pointer">
+                  <div
+                    class="crop_ratio opacity-80 text-sm bg-gray-700 hover:bg-gray-600 w-full h-full rounded-md text-white flex flex-col justify-center items-center"
+                  >
+                    <svg
+                      class="my-1"
+                      width="32"
+                      height="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="crop_size_select_grid_item_icon"
+                    >
+                      <g
+                        id="Icon-/-crop-/-crop_9-16"
+                        stroke="none"
+                        stroke-width="1"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          fill="#ffffff"
+                          d="M26 8a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4v-8a4 4 0 0 1 4-4h20zm0 1.5H6a2.5 2.5 0 0 0-2.495 2.336L3.5 12v8a2.5 2.5 0 0 0 2.336 2.495L6 22.5h20a2.5 2.5 0 0 0 2.495-2.336L28.5 20v-8a2.5 2.5 0 0 0-2.336-2.495L26 9.5z"
+                          transform="rotate(90 16 16)"
+                        ></path>
+                      </g>
+                    </svg>
+                    9 X 16
+                  </div>
+                </div>
+              </div>
+              <!-- Apply and cancel crop button -->
+              <div class="text-white mx-10 mt-10 flex">
+                <button
+                  id="apply_button"
+                  class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3"
+                >
+                  Apply
+                </button>
+                <button
+                  id="cancel_button"
+                  class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white"
+                >
+                  Cancel
+                </button>
+              </div>
             </section>
             <!-- Rotate edit section -->
             <section class="all_editing_section hidden">
@@ -560,14 +772,28 @@
                     ></path>
                   </svg>
                 </div>
-                <div id="resize_width_and_height_input_number_div" class="hidden flex justify-between items-center mt-5">
+                <div
+                  id="resize_width_and_height_input_number_div"
+                  class="hidden flex justify-between items-center mt-5"
+                >
                   <input
                     id="input_width"
                     class="text-center opacity-80 focus:opacity-100 py-2 ring-2 ring-offset-0 ring-gray-600 rounded-sm w-[105px] h-8 bg-transparent text-gray-100"
                     type="number"
                     value="0"
                   />
-                  <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" class=""><path fill="#7E838E" fill-rule="evenodd" d="M5.163 4L7.76 1.403a.825.825 0 0 0 0-1.163.825.825 0 0 0-1.163 0L4 2.837 1.403.24A.825.825 0 0 0 .24.24a.825.825 0 0 0 0 1.163L2.837 4 .24 6.597a.825.825 0 0 0 0 1.163c.32.32.842.32 1.163 0L4 5.163 6.597 7.76c.32.32.843.32 1.163 0a.825.825 0 0 0 0-1.163L5.163 4z"></path></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    class=""
+                  >
+                    <path
+                      fill="#7E838E"
+                      fill-rule="evenodd"
+                      d="M5.163 4L7.76 1.403a.825.825 0 0 0 0-1.163.825.825 0 0 0-1.163 0L4 2.837 1.403.24A.825.825 0 0 0 .24.24a.825.825 0 0 0 0 1.163L2.837 4 .24 6.597a.825.825 0 0 0 0 1.163c.32.32.842.32 1.163 0L4 5.163 6.597 7.76c.32.32.843.32 1.163 0a.825.825 0 0 0 0-1.163L5.163 4z"
+                    ></path>
+                  </svg>
                   <input
                     id="input_height"
                     class="text-center opacity-80 focus:opacity-100 py-2 ring-2 ring-offset-0 ring-gray-600 rounded-sm w-[105px] h-8 bg-transparent text-gray-100"
@@ -602,43 +828,79 @@
                 </svg>
                 Filter
               </h1>
-              <div id="all_filters_section" class=" px-8 h-[70vh] w-full  overflow-y-scroll"> <!--flex flex-wrap-->
+              <div
+                id="all_filters_section"
+                class="px-8 h-[70vh] w-full overflow-y-scroll"
+              >
+                <!--flex flex-wrap-->
                 <div class="flex">
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 1">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 1" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 2">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 2" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 3">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 3" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
                 </div>
                 <div class="flex">
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 4">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 4" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 5">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 5" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 6">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 6" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
                 </div>
                 <div class="flex">
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 7">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 7" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
-                  <div class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200">
-                    <img class="rounded-md" src="" alt="filtered image 8">
-                    <span class="text-gray-200 text-sm flex justify-center my-2"></span>
+                  <div
+                    class="px-2 mb-2 w-1/3 cursor-pointer hover:scale-95 active:scale-105 duration-200"
+                  >
+                    <img class="rounded-md" src="" alt="filtered image 8" />
+                    <span
+                      class="text-gray-200 text-sm flex justify-center my-2"
+                    ></span>
                   </div>
                 </div>
                 <!-- this div for resolve Overflow issue -->
@@ -678,24 +940,72 @@
                   value="0"
                 />
                 <div class="flex mt-6">
-                  <input id="border_color_input" hidden type="color" name="" id="">
-                  <div onclick="border_color_input.click()" class="flex justify-center items-center ml-5">
-                    <img class="absolute w-[34px] h-[34px] rounded-md cursor-pointer" src="https://www.fotor.com/photo-editor-app/img/color.png" alt="color picker image">
-                    <svg class="absolute w-4 h-4 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#f0f0f0" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                  <input
+                    id="border_color_input"
+                    hidden
+                    type="color"
+                    name=""
+                    id=""
+                  />
+                  <div
+                    onclick="border_color_input.click()"
+                    class="flex justify-center items-center ml-5"
+                  >
+                    <img
+                      class="absolute w-[34px] h-[34px] rounded-md cursor-pointer"
+                      src="https://www.fotor.com/photo-editor-app/img/color.png"
+                      alt="color picker image"
+                    />
+                    <svg
+                      class="absolute w-4 h-4 cursor-pointer"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        fill="#f0f0f0"
+                        d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                      />
+                    </svg>
                   </div>
-                  <div onclick="setBorderColor_1()" class="bg-[#c8c8c8] ml-6 w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
-                  <div onclick="setBorderColor_2()" class="bg-[#000000] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
-                  <div onclick="setBorderColor_3()" class="bg-[#0f77ff] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
-                  <div onclick="setBorderColor_4()" class="bg-[#5ca644] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
-                  <div onclick="setBorderColor_5()" class="bg-[#ffd23a] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
-                  <div onclick="setBorderColor_6()" class="bg-[#93c5fd] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"></div>
+                  <div
+                    onclick="setBorderColor_1()"
+                    class="bg-[#c8c8c8] ml-6 w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
+                  <div
+                    onclick="setBorderColor_2()"
+                    class="bg-[#000000] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
+                  <div
+                    onclick="setBorderColor_3()"
+                    class="bg-[#0f77ff] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
+                  <div
+                    onclick="setBorderColor_4()"
+                    class="bg-[#5ca644] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
+                  <div
+                    onclick="setBorderColor_5()"
+                    class="bg-[#ffd23a] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
+                  <div
+                    onclick="setBorderColor_6()"
+                    class="bg-[#93c5fd] ml-[6px] w-[34px] h-[34px] rounded-md hover:scale-95 active:scale-100 cursor-pointer"
+                  ></div>
                 </div>
                 <div>
                   <div class="flex justify-between py-2 mt-6">
                     <span class="">Border Radius</span>
                     <span id="border_radius_value_span">0</span>
                   </div>
-                  <input id="border_radius_input" type="range" class="w-full h-[3px] bg-red-600 rounded-lg cursor-pointer opacity-100" min="0" max="30" step="1" value="0" />
+                  <input
+                    id="border_radius_input"
+                    type="range"
+                    class="w-full h-[3px] bg-red-600 rounded-lg cursor-pointer opacity-100"
+                    min="0"
+                    max="30"
+                    step="1"
+                    value="0"
+                  />
                 </div>
               </div>
             </section>
@@ -704,43 +1014,54 @@
               <h1
                 class="opacity-90 flex items-center mt-[100px] mb-10 text-white text-lg font-medium bg-gray-600 mx-6 py-2 px-6 rounded-lg"
               >
-                <svg
-                  class="w-4 h-4 mr-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    fill="#ffffff"
-                    d="M128 32c0-17.7-14.3-32-32-32S64 14.3 64 32V64H32C14.3 64 0 78.3 0 96s14.3 32 32 32H64V384c0 35.3 28.7 64 64 64H352V384H128V32zM384 480c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H448l0-256c0-35.3-28.7-64-64-64L160 64v64l224 0 0 352z"
-                  />
-                </svg>
+                <img
+                  class="w-5 h-5 mr-4 invert"
+                  src="../Assets/blur.png"
+                  alt="ai image"
+                />
                 AI
               </h1>
+              <div class="mx-12 flex flex-col justify-center items-center">
+                <div id="bg_remover_div" class="w-1/2 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500">
+                  <div id="gray_background" class="duration-1000 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"></div>
+                  <img class="w-full relative z-2 rounded-lg" src="../Assets/sample_img_4.png" alt="sample image">
+                </div>
+                <span class="text-gray-200 opacity-90 mt-1 font-semibold">BG Remover</span>
+              </div>
             </section>
           </div>
         </div>
 
         <!-- Slide button to open -->
-        <div class="w-[14px] flex justify-center items-center">
-          <button
+        <div class="flex justify-center items-center w-[14px]">
+          <div
             id="slide_button"
-            class="flex justify-center items-center pr-1 w-full mt-10 h-20 rounded-r-full"
+            class="flex justify-center items-center pr-1 w-full mt-10 h-20 rounded-r-full cursor-pointer"
           >
-          <svg class="w-11 h-24 scale-x-125 scale-y-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 96" fill="#000000" color: #f0f0f0;><path d="M0,0 h1 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32 H0 z"></path><path d="M0.5,0 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32"></path></svg>
+            <svg
+              class="w-11 h-24 scale-x-125 scale-y-150"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 13 96"
+              fill="#000000"
+            >
+              <path
+                d="M0,0 h1 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32 H0 z"
+              ></path>
+              <path d="M0.5,0 c0,20,12,12,12,32 v32 c0,20,-12,12,-12,32"></path>
+            </svg>
             <svg
               id="slide_button_svg"
-              class="absolute opacity-70"
-              xmlns="http://www.w3.org/2000/svg"
               width="6"
               height="10"
-              class="_1T9V3 kKrGK"
+              class="absolute opacity-70"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 fill="#ffffff"
                 d="M1.802 5l3.695-3.718a.757.757 0 0 0 0-1.062.745.745 0 0 0-1.057 0L.222 4.464l-.005.004A.75.75 0 0 0 0 5a.75.75 0 0 0 .217.532l.006.004L4.44 9.78a.745.745 0 0 0 1.057 0 .757.757 0 0 0 0-1.062L1.802 5z"
               ></path>
             </svg>
-          </button>
+          </div>
         </div>
       </aside>
 
@@ -774,7 +1095,10 @@
             accept="image/*"
           />
         </div>
-        <div id="image_div" class="hidden w-80 mt-16 flex justify-center items-center">
+        <div
+          id="image_div"
+          class="hidden w-80 mt-16 flex justify-center items-center"
+        >
           <img
             id="image"
             class="duration-300 border box-content"
@@ -815,6 +1139,28 @@
               d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
             />
           </svg>
+        </div>
+        <!-- Bg remove section -->
+        <div id="background_remove_section" class="hidden flex flex-col items-center px-6 py-8 bg-gray-50 absolute left-28 top-32 rounded-lg">
+          <div id="bg_remover_div_of_main_section" class="w-28 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500">
+            <div class="w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"></div>
+            <img class="w-full relative z-2 rounded-lg" src="../Assets/sample_img_4.png" alt="sample image">
+          </div>
+          <span class="pt-3 text-lg font-semibold text-gray-700 opacity-75">BG Remover</span>
+          <div class="text-white mt-4 flex">
+            <button
+              id="apply_bg_remove_button"
+              class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3"
+            >
+              Apply
+            </button>
+            <button
+              id="cancel_bg_remove_button"
+              class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </main>
     </section>
