@@ -70,7 +70,7 @@ let image_heigth;
 let default_image_width;
 let default_image_height;
 let border_width = 0;
-let border_color = "#f0f0f0";
+let border_color = "transparent";
 let border_radius = 0;
 
 slide_button.addEventListener("click", () => {
@@ -84,6 +84,9 @@ slide_button.addEventListener("click", () => {
     slide_button_svg.classList.add("rotate-180");
     edit_section_inside_div.classList.add("hidden");
     edit_section.style.width = "0px";
+  }
+  if(!background_remove_section.classList.contains("hidden")){
+    background_remove_section.classList.add("hidden");
   }
 });
 
@@ -129,6 +132,7 @@ all_selected_edit_box.forEach((selected_edit_box, index) => {
         element.classList.remove("ring-2");
         element.classList.remove("ring-offset-0");
         element.classList.remove("ring-blue-500");
+        cropper.destroy();
       }
     });
   });
@@ -142,10 +146,11 @@ import_image_btn.addEventListener("click", import_image);
 import_image_div.addEventListener("click", import_image);
 open_image_button.addEventListener("click", import_image);
 
+let file;
 file_input.addEventListener("change", function () {
   import_image_div.classList.add("hidden");
   image_div.classList.remove("hidden");
-  let file = file_input.files[0];
+  file = file_input.files[0];
   image.src = URL.createObjectURL(file);
 
   // Set width and height of image to resize input_width and input_height
@@ -160,7 +165,7 @@ file_input.addEventListener("change", function () {
 
   // Reset all styling
   for (let styleName of image.style) {
-    image.style[styleName] = "";
+    image.style.styleName = "";
   }
   rotate_value = 0;
   flip_vertical_value = 1;
@@ -654,11 +659,15 @@ let apply_button = document.getElementById("apply_button");
 let cancel_button = document.getElementById("cancel_button");
 let cropper;
 let croped_image_canvas;
+let isFirstClick  = true;
 
 all_selected_edit_box[1].addEventListener("click", () => {
-  cropper = new Cropper(image, {
-    aspectRatio: NaN,
-  });
+  if(isFirstClick === true){
+    cropper = new Cropper(image, {
+      aspectRatio: NaN,
+    });
+    isFirstClick = false;
+  }
 })
 
 // crop ratio
@@ -770,6 +779,101 @@ All_crop_ratio.forEach((crop_ratio, index) => {
 });
 // -------------------------------Image Crop Feature-----------------------------------
 
+// -------------------------------AI Bg remove feature---------------------------------
+let bg_remover_div = document.getElementById("bg_remover_div");
+let gray_background = document.getElementById("gray_background");
+
+gray_background.style.width = "50%";
+bg_remover_div.addEventListener("mouseenter", () => {
+  gray_background.classList.add("background_remove_animation");
+})
+
+bg_remover_div.addEventListener("mouseleave", () => {
+  gray_background.classList.remove("background_remove_animation");
+})
+
+// Bg remove logic
+let apply_bg_remove_button = document.getElementById("apply_bg_remove_button");
+let cancel_bg_remove_button = document.getElementById("cancel_bg_remove_button");
+let bg_remover_div_of_main_section = document.getElementById("bg_remover_div_of_main_section");
+let background_remove_section = document.getElementById("background_remove_section");
+let image_url;
+
+let fileName = "image.jpg";
+
+function remove_backgound() {
+  image.classList.add("opacity-80");
+  const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
+
+  const formData = new FormData();
+  formData.append("image_file", file);
+  formData.append("size", "auto");
+  image_url = image.src;
+  fetch("https://api.remove.bg/v1.0/removebg", {
+    method: "POST",
+    headers: {
+      "X-Api-Key": apiKey,
+    },
+    body: formData,
+  })
+    .then(function (reponse) {
+      return reponse.blob();
+    })
+    .then(function (blob) {
+      const url = URL.createObjectURL(blob);
+      // console.log("URL = ",url);
+      image.src = url;
+      image.classList.remove("opacity-80");
+    })
+    .catch(() => {
+      alert("ERROR");
+      image.classList.remove("opacity-80");
+    });
+}
+
+// Function to convert image URL to a File object (not used yet)
+async function imageURLToFile(imageUrl, fileName) {
+  try {
+    // Fetch the image
+    const response = await fetch(imageUrl);
+    // Ensure the request was successful
+    if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
+    // Get the image data as Blob
+    const imageData = await response.blob();
+    // Create a file from Blob
+    const file = new File([imageData], fileName, { type: imageData.type });
+    return file;
+  } catch (error) {
+    console.error("Error converting image URL to File:", error);
+  }
+}
+
+// bg_remover_div.addEventListener("click", remove_backgound);
+bg_remover_div.addEventListener("click", () => {
+  // remove_backgound();
+  slide_button.click();
+  background_remove_section.classList.remove("hidden");
+});
+
+bg_remover_div_of_main_section.addEventListener("click", () => {
+  remove_backgound();
+  alert("BG remove");
+});
+
+slide_button.click();
+
+apply_bg_remove_button.addEventListener("click", () => {
+  slide_button.click();
+  background_remove_section.classList.add("hidden");
+})
+
+cancel_bg_remove_button.addEventListener("click", () => {
+  image.src = image_url;
+  slide_button.click();
+  background_remove_section.classList.add("hidden");
+})
+// -------------------------------AI Bg remove feature---------------------------------
+
 // ---------------------------------------------------------------
 // Function to apply border-radius in image
 function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
@@ -811,14 +915,20 @@ function download_image() {
   // ---------------------
   canvas.width = image_width + borderWidth * 2; // canvas.width = image.naturalWidth;
   canvas.height = image_heigth + borderWidth * 2; // canvas.height = image.naturalHeight;
-  // apply border radius
-  clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, border_radius);
   // ----------------Ex----------------
   // Fill background (border area) with the specified color
   // let borderColor = '#f0f';
-  ctx.fillStyle = border_color;
+  // ctx.fillStyle = border_color;
+  // apply border radius
+  clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, border_radius);
+  // ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.clip();
+  if(borderWidth > 0) {
+    ctx.lineWidth = borderWidth;
+    ctx.strokeStyle = border_color; // Set the border color here
+    ctx.strokeRect(borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth);
+  }
   // ----------------Ex----------------
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
   // apply filters :-
   ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
   // apply - Backgound color
@@ -860,53 +970,10 @@ function download_image() {
   // }
 }
 
-// ------------------------------------------------GPT Solution---------------------------------
-function download_image_chatGPT() {
-  // const img = imageContainer.querySelector('img');
-  // if (!img) return; // No image, do nothing
-
-  const canvas = document.createElement("canvas");
-  const ctx = canvas.getContext("2d");
-  const imgElement = new Image();
-
-  // Ensure cross-origin images can be loaded
-  imgElement.crossOrigin = "anonymous";
-
-  imgElement.onload = function () {
-    canvas.width = imgElement.width;
-    canvas.height = imgElement.height;
-
-    ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
-
-    // Correct the canvas size based on the rotation
-    if (rotate_value % 180 === 90) {
-      canvas.width = imgElement.height;
-      canvas.height = imgElement.width;
-    }
-
-    // Set the origin to the center of the canvas
-    ctx.translate(canvas.width / 2, canvas.height / 2);
-    // Rotate the canvas
-    ctx.rotate((rotate_value * Math.PI) / 180);
-    // Draw the image on the rotated context
-    ctx.drawImage(imgElement, -imgElement.width / 2, -imgElement.height / 2);
-
-    // Convert canvas to image and download
-    const link = document.createElement("a");
-    link.download = "rotated-image.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  };
-
-  imgElement.src = image.src;
-  // }
-}
-// ------------------------------------------------GPT Solution---------------------------------
-
 // download button
-// download_button.addEventListener("click", download_image_chatGPT);
 download_button.addEventListener("click", download_image);
 
 // -----for now i hide all edit section and unhide rotate edit section-------
 all_editing_section[0].classList.add("hidden");
-all_editing_section[1].classList.remove("hidden");
+all_editing_section[5].classList.remove("hidden");
+
