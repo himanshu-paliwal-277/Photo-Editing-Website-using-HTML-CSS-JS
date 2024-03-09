@@ -42,6 +42,10 @@ let resize_div = document.getElementById("resize_div");
 // Download Button
 let download_button = document.getElementById("download_button");
 
+// disable div
+let disable_div = document.getElementById("disable_div");
+let disable_download_div = document.getElementById("disable_download_div");
+
 // All filters of filter section
 const filters = [
   { name: "Normal", value: "", filter_value: "" },
@@ -85,7 +89,7 @@ slide_button.addEventListener("click", () => {
     edit_section_inside_div.classList.add("hidden");
     edit_section.style.width = "0px";
   }
-  if(!background_remove_section.classList.contains("hidden")){
+  if (!background_remove_section.classList.contains("hidden")) {
     background_remove_section.classList.add("hidden");
   }
 });
@@ -147,11 +151,21 @@ import_image_div.addEventListener("click", import_image);
 open_image_button.addEventListener("click", import_image);
 
 let file;
+let image_url;
+let is_second_import_image = false;
+
 file_input.addEventListener("change", function () {
+  disable_div.classList.add("hidden");
+  disable_download_div.classList.add("hidden");
+
+  image.style.width = "100%";
+  image.style.height = "";
+
   import_image_div.classList.add("hidden");
   image_div.classList.remove("hidden");
   file = file_input.files[0];
   image.src = URL.createObjectURL(file);
+  image_url = image.src;
 
   // Set width and height of image to resize input_width and input_height
   setTimeout(() => {
@@ -163,52 +177,64 @@ file_input.addEventListener("change", function () {
     default_image_height = image_heigth;
   }, 200);
 
-  // Reset all styling
-  for (let styleName of image.style) {
-    image.style.styleName = "";
+  if (is_second_import_image) {
+    // Reset all previous styling
+    brightness_value = 100;
+    contrast_value = 100;
+    saturation_value = 100;
+    blur_value = 0;
+    invert_value = 0;
+    grayscale_value = 0;
+    sepia_value = 0;
+    image.style.filter = "";
+
+    rotate_value = 0;
+    flip_vertical_value = 1;
+    flip_horizontal_value = 1;
+    border_radius = 0;
+    border_width = 0;
+    image.style.borderWidth = "0px";
+    image.style.borderRadius = "0px";
+    image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
+  } else {
+    is_second_import_image = true;
   }
-  rotate_value = 0;
-  flip_vertical_value = 1;
-  flip_horizontal_value = 1;
-  border_radius = 0;
-  border_width = 0;
-  image.style.borderWidth = "0px";
-  image.style.borderRadius = "0px";
-  image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
 });
 
 // ----------------------Zoom in Zoom out feature----------------------
 const zoomContainer = document.getElementById("zoom-container");
-let scale = 1; // Initial scale value
+// Initial scale value
+let scale = 1;
 
 const zoomSpeed = 0.1; // Control the speed of zooming
 
 zoomContainer.addEventListener("wheel", (event) => {
-  if(event.ctrlKey){
-  event.preventDefault(); // Prevent the page from scrolling
+  if (event.ctrlKey) {
+    // Prevent the page from scrolling
+    event.preventDefault();
 
-  if (event.deltaY < 0) {
-    // Scrolling up, zoom in
-    if (scale < 2) {
-      scale += zoomSpeed;
+    if (event.deltaY < 0) {
+      // Scrolling up, zoom in
+      if (scale < 2) {
+        scale += zoomSpeed;
+      }
+    } else {
+      // Scrolling down, zoom out
+      scale -= zoomSpeed;
+      if (scale <= 0.5) {
+        // Prevent zooming out beyond the initial scale
+        scale = 0.5;
+      }
     }
-  } else {
-    // Scrolling down, zoom out
-    scale -= zoomSpeed;
-    if (scale <= 0.5) {
-      scale = 0.5; // Prevent zooming out beyond the initial scale
-    }
+
+    // Apply the scale transformation
+    image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
+
+    // zoom in zoom out value
+    document.getElementById(
+      "zoom_in_zoom_out_value"
+    ).innerHTML = `${scale.toFixed(1)}%`;
   }
-
-  // Apply the scale transformation
-  image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
-  // image_div.style.transform = `scale(${scale})`;
-
-  // zoom in zoom out value
-  document.getElementById(
-    "zoom_in_zoom_out_value"
-  ).innerHTML = `${scale.toFixed(1)}%`;
-}
 });
 
 // zoom in / zoom out button
@@ -225,7 +251,8 @@ zoom_in_button.addEventListener("click", () => {
 
 zoom_out_button.addEventListener("click", () => {
   if (scale < 0.6) {
-    scale = 0.5; // Prevent zooming out beyond the initial scale
+    // Prevent zooming out beyond the initial scale
+    scale = 0.5;
   } else {
     scale -= zoomSpeed;
   }
@@ -234,6 +261,7 @@ zoom_out_button.addEventListener("click", () => {
     "zoom_in_zoom_out_value"
   ).innerHTML = `${scale.toFixed(1)}%`;
 });
+// ----------------------Zoom in Zoom out feature----------------------
 
 // All basic adjust
 
@@ -316,13 +344,11 @@ function reset_adjustment() {
 // rotate feature
 rotate_right_btn.addEventListener("click", () => {
   rotate_value += 90;
-  console.log("rotate value = ", rotate_value);
   image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
 });
 
 rotate_left_btn.addEventListener("click", () => {
   rotate_value -= 90;
-  console.log("rotate value = ", rotate_value);
   image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
 });
 
@@ -469,7 +495,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = filters[1].value;
           sepia_value = 0;
-          // image.style.filter = `grayscale(${grayscale_value}%)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 2:
@@ -480,7 +505,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = filters[2].value;
-          // image.style.filter = `sepia(${sepia_value}%)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 3:
@@ -491,7 +515,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = 0;
-          // image.style.filter = `brightness(${brightness_value}%)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 4:
@@ -502,7 +525,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = 0;
-          // image.style.filter = `contrast(${contrast_value}%)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 5:
@@ -513,7 +535,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = filters[5].value;
           grayscale_value = 0;
           sepia_value = 0;
-          // image.style.filter = `invert(${invert_value})`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 6:
@@ -524,7 +545,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = 0;
-          // image.style.filter = `saturate(${saturation_value}%)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
         case 7:
@@ -535,7 +555,6 @@ all_selected_edit_box[3].addEventListener("click", () => {
           invert_value = 0;
           grayscale_value = 0;
           sepia_value = 0;
-          // image.style.filter = `blur(${blur_value}px)`;
           image.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px)  invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
           break;
       }
@@ -588,14 +607,12 @@ border_size_input.addEventListener("input", function () {
   border_width = this.value;
   border_size_value_span.innerHTML = `${border_width}`;
   image.style.borderWidth = `${border_width}px`;
-  // console.log("border_width = ", border_width);
   image.style.borderColor = `${border_color}`;
 });
 
 border_color_input.addEventListener("input", function () {
   border_color = this.value;
   image.style.borderColor = `${border_color}`;
-  // alert(border_color);
 });
 
 function setBorderColor_1() {
@@ -659,16 +676,16 @@ let apply_button = document.getElementById("apply_button");
 let cancel_button = document.getElementById("cancel_button");
 let cropper;
 let croped_image_canvas;
-let isFirstClick  = true;
+let isFirstClick = true;
 
 all_selected_edit_box[1].addEventListener("click", () => {
-  if(isFirstClick === true){
+  if (isFirstClick === true) {
     cropper = new Cropper(image, {
       aspectRatio: NaN,
     });
     isFirstClick = false;
   }
-})
+});
 
 // crop ratio
 let x;
@@ -786,18 +803,23 @@ let gray_background = document.getElementById("gray_background");
 gray_background.style.width = "50%";
 bg_remover_div.addEventListener("mouseenter", () => {
   gray_background.classList.add("background_remove_animation");
-})
+});
 
 bg_remover_div.addEventListener("mouseleave", () => {
   gray_background.classList.remove("background_remove_animation");
-})
+});
 
 // Bg remove logic
 let apply_bg_remove_button = document.getElementById("apply_bg_remove_button");
-let cancel_bg_remove_button = document.getElementById("cancel_bg_remove_button");
-let bg_remover_div_of_main_section = document.getElementById("bg_remover_div_of_main_section");
-let background_remove_section = document.getElementById("background_remove_section");
-let image_url;
+let cancel_bg_remove_button = document.getElementById(
+  "cancel_bg_remove_button"
+);
+let bg_remover_div_of_main_section = document.getElementById(
+  "bg_remover_div_of_main_section"
+);
+let background_remove_section = document.getElementById(
+  "background_remove_section"
+);
 
 let fileName = "image.jpg";
 
@@ -809,6 +831,7 @@ function remove_backgound() {
   formData.append("image_file", file);
   formData.append("size", "auto");
   image_url = image.src;
+  image.classList.add("loading_animation_effect");
   fetch("https://api.remove.bg/v1.0/removebg", {
     method: "POST",
     headers: {
@@ -821,60 +844,37 @@ function remove_backgound() {
     })
     .then(function (blob) {
       const url = URL.createObjectURL(blob);
-      // console.log("URL = ",url);
       image.src = url;
-      image.classList.remove("opacity-80");
+      image.classList.remove("loading_animation_effect");
     })
     .catch(() => {
       alert("ERROR");
-      image.classList.remove("opacity-80");
+      image.classList.remove("loading_animation_effect");
     });
 }
 
-// Function to convert image URL to a File object (not used yet)
-async function imageURLToFile(imageUrl, fileName) {
-  try {
-    // Fetch the image
-    const response = await fetch(imageUrl);
-    // Ensure the request was successful
-    if (!response.ok) throw new Error(`Failed to fetch image: ${response.statusText}`);
-    // Get the image data as Blob
-    const imageData = await response.blob();
-    // Create a file from Blob
-    const file = new File([imageData], fileName, { type: imageData.type });
-    return file;
-  } catch (error) {
-    console.error("Error converting image URL to File:", error);
-  }
-}
-
-// bg_remover_div.addEventListener("click", remove_backgound);
 bg_remover_div.addEventListener("click", () => {
-  // remove_backgound();
+  remove_backgound();
   slide_button.click();
   background_remove_section.classList.remove("hidden");
 });
 
 bg_remover_div_of_main_section.addEventListener("click", () => {
-  remove_backgound();
-  alert("BG remove");
+  // remove_backgound();
 });
-
-slide_button.click();
 
 apply_bg_remove_button.addEventListener("click", () => {
   slide_button.click();
   background_remove_section.classList.add("hidden");
-})
+});
 
 cancel_bg_remove_button.addEventListener("click", () => {
   image.src = image_url;
   slide_button.click();
   background_remove_section.classList.add("hidden");
-})
+});
 // -------------------------------AI Bg remove feature---------------------------------
 
-// ---------------------------------------------------------------
 // Function to apply border-radius in image
 function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
   ctx.beginPath();
@@ -895,11 +895,113 @@ function clipRoundedRect(ctx, x, y, width, height, borderRadius) {
   ctx.closePath();
   ctx.clip();
 }
-// ---------------------------------------------------------------
+
+// Download quality option feature
+let download_option_window = document.getElementById("download_option_window");
+let close_download_option_button = document.getElementById(
+  "close_download_option_button"
+);
+let select_download_quality_button = document.getElementById(
+  "select_download_quality_button"
+);
+let download_quality_options_low_medium_high = document.getElementById(
+  "download_quality_options_low_medium_high"
+);
+let All_download_quality_low_medium_high = document.querySelectorAll(
+  "#download_quality_options_low_medium_high > h2"
+);
+let All_selected_tick = document.querySelectorAll(
+  "#download_quality_options_low_medium_high .selected_tick"
+);
+let download_quality_span = document.getElementById("download_quality_span");
+let download_formate_jpg_button = document.getElementById(
+  "download_formate_jpg_button"
+);
+let download_formate_png_button = document.getElementById(
+  "download_formate_png_button"
+);
+let png_default_quality_span = document.getElementById(
+  "png_default_quality_span"
+);
+let file_name_input = document.getElementById("file_name_input");
+let download_image_preview = document.getElementById("download_image_preview");
+
+let download_image_format = "image/png";
+// Image quality in range of: 0 - 1 where 0.3 for low, 0.5 for medium and 0.8 for high quality
+let download_image_quality = 0.5;
+let file_name = "image";
+
+close_download_option_button.addEventListener("click", () => {
+  download_option_window.classList.add("hidden");
+});
+
+select_download_quality_button.addEventListener("click", () => {
+  if (download_quality_options_low_medium_high.classList.contains("hidden")) {
+    download_quality_options_low_medium_high.classList.remove("hidden");
+  } else {
+    download_quality_options_low_medium_high.classList.add("hidden");
+  }
+});
+
+// when click to high quality
+All_download_quality_low_medium_high[0].addEventListener("click", () => {
+  download_image_quality = 0.9;
+  download_quality_span.innerHTML = "High";
+  All_selected_tick[0].classList.remove("hidden");
+  All_selected_tick[1].classList.add("hidden");
+  All_selected_tick[2].classList.add("hidden");
+});
+
+// when click to medium quality
+All_download_quality_low_medium_high[1].addEventListener("click", () => {
+  download_image_quality = 0.5;
+  download_quality_span.innerHTML = "Medium";
+  All_selected_tick[0].classList.add("hidden");
+  All_selected_tick[1].classList.remove("hidden");
+  All_selected_tick[2].classList.add("hidden");
+});
+
+// when click to low quality
+All_download_quality_low_medium_high[2].addEventListener("click", () => {
+  download_image_quality = 0.3;
+  download_quality_span.innerHTML = "Low";
+  All_selected_tick[0].classList.add("hidden");
+  All_selected_tick[1].classList.add("hidden");
+  All_selected_tick[2].classList.remove("hidden");
+});
+
+select_download_quality_button.classList.add("hidden");
+
+download_formate_jpg_button.addEventListener("click", () => {
+  download_image_format = "image/jpeg";
+  select_download_quality_button.classList.remove("hidden");
+  png_default_quality_span.classList.add("hidden");
+  download_formate_jpg_button.classList.remove("ring-gray-300");
+  download_formate_jpg_button.classList.add("ring-blue-700");
+  download_formate_png_button.classList.add("ring-gray-300");
+  download_formate_png_button.classList.remove("ring-blue-700");
+  download_formate_jpg_button.classList.add("text-blue-600");
+  download_formate_png_button.classList.remove("text-blue-600");
+});
+download_formate_png_button.addEventListener("click", () => {
+  download_image_format = "image/png";
+  select_download_quality_button.classList.add("hidden");
+  png_default_quality_span.classList.remove("hidden");
+  download_formate_png_button.classList.remove("ring-gray-300");
+  download_formate_png_button.classList.add("ring-blue-700");
+  download_formate_jpg_button.classList.add("ring-gray-300");
+  download_formate_jpg_button.classList.remove("ring-blue-700");
+  download_formate_jpg_button.classList.remove("text-blue-600");
+  download_formate_png_button.classList.add("text-blue-600");
+});
+
+// file_name_input
+file_name_input.addEventListener("input", function () {
+  file_name = this.value;
+});
 
 // download image function
 function download_image() {
-  // if (confirm("Do you want to download an image")) {
   let canvas = document.createElement("canvas");
   let ctx = canvas.getContext("2d");
   // Apply rotate when rotate value 90, 270, 450...
@@ -909,31 +1011,27 @@ function download_image() {
     isRotated = true;
   }
   // Apply width and height :-
-  // After adding a resize image feature // logic before adding resize feature
-  // ---------------------
   let borderWidth = parseInt(border_width);
-  // ---------------------
-  canvas.width = image_width + borderWidth * 2; // canvas.width = image.naturalWidth;
-  canvas.height = image_heigth + borderWidth * 2; // canvas.height = image.naturalHeight;
-  // ----------------Ex----------------
-  // Fill background (border area) with the specified color
-  // let borderColor = '#f0f';
-  // ctx.fillStyle = border_color;
+  canvas.width = image_width + borderWidth * 2;
+  canvas.height = image_heigth + borderWidth * 2;
+  // This is used to fill background of image
+  // ctx.fillStyle = bg_color;
   // apply border radius
   clipRoundedRect(ctx, 0, 0, canvas.width, canvas.height, border_radius);
-  // ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.clip();
-  if(borderWidth > 0) {
+  if (borderWidth > 0) {
     ctx.lineWidth = borderWidth;
     ctx.strokeStyle = border_color; // Set the border color here
-    ctx.strokeRect(borderWidth / 2, borderWidth / 2, canvas.width - borderWidth, canvas.height - borderWidth);
+    ctx.strokeRect(
+      borderWidth / 2,
+      borderWidth / 2,
+      canvas.width - borderWidth,
+      canvas.height - borderWidth
+    );
   }
-  // ----------------Ex----------------
   // apply filters :-
   ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
   // apply - Backgound color
-  // ctx.fillStyle = color_value;
-  // ctx.translate(image_width / 2, image_heigth / 2);
   ctx.translate(image_width / 2 + borderWidth, image_heigth / 2 + borderWidth);
   // apply - rotate :-
   ctx.rotate((rotate_value * Math.PI) / 180);
@@ -956,24 +1054,32 @@ function download_image() {
       image_heigth
     );
   }
-  // --------------------Ex---------------------
   ctx.setTransform(1, 0, 0, 1, 0, 0);
-  // --------------------Ex---------------------
 
-  // --------------Download image logic----------------
+  // Download image logic
+  if (file_name === "") {
+    file_name = "image";
+  }
   const link = document.createElement("a");
-  link.download = "image.jpg";
-  link.href = canvas.toDataURL();
+  link.download = `${file_name}.${download_image_format.split("/")[1]}`;
+  if (download_image_format === "image/jpeg") {
+    link.href = canvas.toDataURL(
+      download_image_format,
+      parseFloat(download_image_quality)
+    );
+  } else {
+    link.href = canvas.toDataURL(download_image_format);
+  }
   link.click();
-  // --------------Download image logic----------------
-  // document.querySelector("main").appendChild(canvas);
-  // }
 }
 
 // download button
-download_button.addEventListener("click", download_image);
+download_button.addEventListener("click", () => {
+  // this will show the download quality window
+  download_option_window.classList.remove("hidden");
+  download_image_preview.src = image.src;
+});
 
-// -----for now i hide all edit section and unhide rotate edit section-------
-all_editing_section[0].classList.add("hidden");
-all_editing_section[5].classList.remove("hidden");
-
+// download_image_button after adjust the quality
+let download_image_button = document.getElementById("download_image_button");
+download_image_button.addEventListener("click", download_image);
