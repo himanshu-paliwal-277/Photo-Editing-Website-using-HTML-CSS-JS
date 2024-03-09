@@ -32,6 +32,23 @@
         background-repeat: no-repeat;
         background-size: cover;
       }
+
+      .loading_animation_effect {
+        animation: loading 2s 1s infinite forwards;
+      }
+
+      @keyframes loading {
+        0%{
+          opacity: 1;
+        }
+        50%{
+          opacity: 0.5;
+        }
+        100%{
+          opacity: 1;
+        }
+      }
+
       #bg_remover_div_of_main_section {
         background-image: url('../Assets/sample_image_bg.jpg');
         background-repeat: no-repeat;
@@ -57,8 +74,9 @@
     </style>
   </head>
   <body class="w-full h-screen bg-gray-200 overflow-hidden">
-    <!-- overflow-hidden -->
     <!-- Navigation bar -->
+    <!-- This div for Disable very thing until user input an image -->
+    <div id="disable_div" class="bg-gray-100 bg-opacity-10 w-full h-screen absolute z-10" title="Please open an image before editing"></div>
     <nav
       id="navbar"
       class="fixed inset-x-0 top-0 z-10 w-full px-8 py-0 bg-black shadow-sm shadow-gray-500 border-slate-500 transition duration-700 ease-out"
@@ -101,10 +119,12 @@
           </button>
         </div>
         <div class="flex">
+          <!-- disable download button -->
+          <div id="disable_download_div" class="bg-white bg-opacity-20 cursor-not-allowed absolute w-40 h-12 z-1 rounded-full"></div>
           <!-- Download Button -->
           <button
             id="download_button"
-            class="flex items-center mr-6 hover:scale-105 duration-300 text-lg hover:bg-blue-500 active:bg-blue-600 text-white bg-blue-600 px-6 py-2 rounded-full"
+            class="flex items-center mr-6 hover:scale-95 duration-300 text-lg hover:bg-blue-500 active:bg-blue-600 text-white bg-blue-600 px-6 py-2 rounded-full"
           >
             <svg
               class="w-4 h-4 mr-2"
@@ -1073,7 +1093,7 @@
         <!-- Import Image Button -->
         <div
           id="import_image_div"
-          class="hover:shadow-xl shadow-lg border border-dashed border-gray-400 hover:border-blue-600 border-2 cursor-pointer rounded-lg bg-white hover:bg-blue-100 hover:bg-opacity-40 flex flex-col items-center justify-center w-1/2 h-72"
+          class="z-20 hover:shadow-xl shadow-lg border border-dashed border-gray-400 hover:border-blue-600 border-2 cursor-pointer rounded-lg bg-white hover:bg-blue-100 hover:bg-opacity-40 flex flex-col items-center justify-center w-1/2 h-72"
         >
           <img
             class="w-16 opacity-50"
@@ -1150,13 +1170,13 @@
           <div class="text-white mt-4 flex">
             <button
               id="apply_bg_remove_button"
-              class="px-7 py-2 rounded-lg bg-blue-700 hover:bg-blue-600 active:bg-blue-700 mr-3"
+              class="px-7 py-2 rounded-md bg-blue-500 hover:bg-blue-600 active:bg-blue-500 mr-3"
             >
               Apply
             </button>
             <button
               id="cancel_bg_remove_button"
-              class="px-7 py-2 rounded-lg bg-gray-700 text-gray-400 hover:bg-gray-600 active:bg-gray-700 hover:text-white"
+              class="px-7 py-2 rounded-md bg-gray-200 text-gray-600 hover:bg-gray-300 active:bg-gray-200"
             >
               Cancel
             </button>
@@ -1164,6 +1184,61 @@
         </div>
       </main>
     </section>
+    <!-- Image Download quality Options -->
+    <div id="download_option_window" class="hidden bg-black bg-opacity-50 absolute top-0 z-10 flex justify-center items-center w-full h-screen">
+      <div class="bg-white px-12 py-20 flex rounded-lg">
+        <div class="h-80 w-60 flex justify-center items-center mx-8">
+          <img id="download_image_preview" class="shadow-2xl max-w-full max-h-full" src="" alt="image">
+        </div>
+        <div class="ml-8 w-80 text-sm text-gray-600 font-semibold">
+          <h2 class="mb-2">File Name</h2>
+          <input id="file_name_input" class="text-base text-black font-normal px-5 h-10 mb-6 w-full opacity-70 ring-1 ring-offset-0 ring-gray-400 rounded-md" type="text" value="image" name="file name" >
+          <h2 class="mb-2">Format</h2>
+          <div class="mb-6">
+            <button id="download_formate_jpg_button" class="ring-1 ring-offset-0 ring-gray-300 font-semibold mr-2 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2">JPG</button>
+            <button id="download_formate_png_button" class="ring-1 ring-offset-0 ring-blue-700 font-semibold text-blue-600 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2">PNG</button>
+          </div>
+          <h2 class="mb-2 flex justify-between items-center">
+            <span>Quality</span>
+            <span id="png_default_quality_span" class="mr-4 opacity-50 text-sm">High</span>
+          </h2>
+          <div id="select_download_quality_button" class="flex justify-between items-center cursor-pointer ring-1 ring-offset-0 ring-blue-700 font-semibold opacity-80 rounded-md px-5 py-2">
+            <span id="download_quality_span">Medium</span>
+            <svg
+              id="download_quality_div_arrow_svg"
+              class="rotate-[270deg] duration-300 scale-110 opacity-70"
+              xmlns="http://www.w3.org/2000/svg"
+              width="6"
+              height="10"
+            >
+              <path
+                fill="#000000"
+                d="M1.802 5l3.695-3.718a.757.757 0 0 0 0-1.062.745.745 0 0 0-1.057 0L.222 4.464l-.005.004A.75.75 0 0 0 0 5a.75.75 0 0 0 .217.532l.006.004L4.44 9.78a.745.745 0 0 0 1.057 0 .757.757 0 0 0 0-1.062L1.802 5z"
+              ></path>
+            </svg>
+          </div>
+          <div id="download_quality_options_low_medium_high" class="hidden mt-2 bg-white shadow-xl absolute w-[320px]">
+            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+              <span>High</span>
+              <svg class="selected_tick w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+            </h2>
+            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+              <span>Medium</span>
+              <svg class="selected_tick w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+            </h2>
+            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+              <span>Low</span>
+              <svg class="selected_tick w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+            </h2>
+          </div>
+          <button id="download_image_button" class="mt-8 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 h-10 w-full rounded-md text-gray-100 flex justify-center items-center">Download</button>
+        </div>
+        <div>
+          <svg id="close_download_option_button" class="w-6 h-6 absolute top-20 cursor-pointer opacity-30 hover:opacity-100 active:opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        </div>
+      </div>
+    </div>
+
     <!-- Cropper.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
