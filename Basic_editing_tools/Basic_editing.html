@@ -85,7 +85,7 @@
         <div
           class="text-[2rem] leading-[3rem] tracking-tight font-bold text-white flex"
         >
-          <img class="w-12" src="../Assets/logo.png" alt="logo" />Editor
+          <img class="w-12 mr-3" src="../Assets/logo.png" alt="logo" />Editor
           <button
             id="open_image_button"
             class="ml-8 rounded-full flex justify-center items-center px-6 text-sm bg-gray-700 hover:bg-gray-600 hover:ring-2 hover:ring-offset-0 hover:ring-blue-500 active:bg-gray-700"
@@ -1186,11 +1186,11 @@
     </section>
     <!-- Image Download quality Options -->
     <div id="download_option_window" class="hidden bg-black bg-opacity-50 absolute top-0 z-10 flex justify-center items-center w-full h-screen">
-      <div class="bg-white px-12 py-20 flex rounded-lg">
-        <div class="h-80 w-60 flex justify-center items-center mx-8">
+      <div class="bg-white pl-12 flex rounded-lg">
+        <div class="h-80 w-60 flex justify-center items-center mx-8 my-20">
           <img id="download_image_preview" class="shadow-2xl max-w-full max-h-full" src="" alt="image">
         </div>
-        <div class="ml-8 w-80 text-sm text-gray-600 font-semibold">
+        <div class="ml-8 w-80 text-sm text-gray-600 font-semibold my-20">
           <h2 class="mb-2">File Name</h2>
           <input id="file_name_input" class="text-base text-black font-normal px-5 h-10 mb-6 w-full opacity-70 ring-1 ring-offset-0 ring-gray-400 rounded-md" type="text" value="image" name="file name" >
           <h2 class="mb-2">Format</h2>
@@ -1233,8 +1233,8 @@
           </div>
           <button id="download_image_button" class="mt-8 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 h-10 w-full rounded-md text-gray-100 flex justify-center items-center">Download</button>
         </div>
-        <div>
-          <svg id="close_download_option_button" class="w-6 h-6 absolute top-20 cursor-pointer opacity-30 hover:opacity-100 active:opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        <div class="flex items-start py-3 px-5">
+          <svg id="close_download_option_button" class="w-6 h-6 cursor-pointer opacity-30 hover:opacity-100 active:opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
         </div>
       </div>
     </div>
@@ -1244,5 +1244,8 @@
 
     <!-- JavaScript -->
     <script src="./Basic_editing_JS.js"></script>
+
+    <!-- Home page JS code -->
+    <script src="../script.js"></script>
   </body>
 </html>

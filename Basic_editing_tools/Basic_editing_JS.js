@@ -70,7 +70,7 @@ let rotate_value = 0;
 let flip_horizontal_value = 1;
 let flip_vertical_value = 1;
 let image_width;
-let image_heigth;
+let image_height;
 let default_image_width;
 let default_image_height;
 let border_width = 0;
@@ -136,7 +136,9 @@ all_selected_edit_box.forEach((selected_edit_box, index) => {
         element.classList.remove("ring-2");
         element.classList.remove("ring-offset-0");
         element.classList.remove("ring-blue-500");
-        cropper.destroy();
+        if (cropper) {
+          cropper.destroy();
+        }
       }
     });
   });
@@ -158,7 +160,7 @@ file_input.addEventListener("change", function () {
   disable_div.classList.add("hidden");
   disable_download_div.classList.add("hidden");
 
-  image.style.width = "100%";
+  image.style.width = "";
   image.style.height = "";
 
   import_image_div.classList.add("hidden");
@@ -172,9 +174,9 @@ file_input.addEventListener("change", function () {
     input_width.value = image.width;
     input_height.value = image.height;
     image_width = image.width;
-    image_heigth = image.height;
+    image_height = image.height;
     default_image_width = image_width;
-    default_image_height = image_heigth;
+    default_image_height = image_height;
   }, 200);
 
   if (is_second_import_image) {
@@ -376,20 +378,20 @@ let input_width = document.getElementById("input_width");
 let input_height = document.getElementById("input_height");
 
 image.style.width = `${image_width}px`;
-image.style.height = `${image_heigth}px`;
+image.style.height = `${image_height}px`;
 
 input_width.addEventListener("input", function () {
   image_width = this.value;
   if (image_width > 0) {
     image.style.width = `${image_width}px`;
-    image.style.height = `${image_heigth}px`;
+    image.style.height = `${image_height}px`;
   }
 });
 
 input_height.addEventListener("input", function () {
-  image_heigth = this.value;
-  if (image_heigth > 0) {
-    image.style.height = `${image_heigth}px`;
+  image_height = this.value;
+  if (image_height > 0) {
+    image.style.height = `${image_height}px`;
     image.style.width = `${image_width}px`;
   }
 });
@@ -656,12 +658,12 @@ function reset_rotate_flip_resize() {
   flip_horizontal_value = 1;
   flip_vertical_value = 1;
   image_width = default_image_width;
-  image_heigth = default_image_height;
+  image_height = default_image_height;
   input_width.value = default_image_width;
   input_height.value = default_image_height;
   image.style.transform = `rotate(${rotate_value}deg) scale(${scale}) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
   image.style.width = `${image_width}px`;
-  image.style.height = `${image_heigth}px`;
+  image.style.height = `${image_height}px`;
 }
 
 // reset rotate, flip and resize
@@ -698,9 +700,13 @@ function apply_crop() {
   });
   image.src = croped_image_canvas.toDataURL();
   cropper.destroy();
-  // Change the image_width and image_heigth
+  // Change the image_width and image_height
   image_width = croped_image_canvas.width;
-  image_heigth = croped_image_canvas.height;
+  image_height = croped_image_canvas.height;
+  default_image_width = image_width;
+  default_image_height = image_height;
+  input_width.value = image_width;
+  input_height.value = image_height;
 }
 
 function cancel_crop() {
@@ -825,7 +831,8 @@ let fileName = "image.jpg";
 
 function remove_backgound() {
   image.classList.add("opacity-80");
-  const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
+  // const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
+  const apiKey = "7Lt2ibMDVmERC3NqjTNbi9qi";
 
   const formData = new FormData();
   formData.append("image_file", file);
@@ -1007,13 +1014,16 @@ function download_image() {
   // Apply rotate when rotate value 90, 270, 450...
   let isRotated = false;
   if (Math.abs(rotate_value) % 180 !== 0 && rotate_value !== 0) {
-    [image_width, image_heigth] = [image_heigth, image_width];
+    [image_width, image_height] = [image_height, image_width];
     isRotated = true;
   }
   // Apply width and height :-
   let borderWidth = parseInt(border_width);
-  canvas.width = image_width + borderWidth * 2;
-  canvas.height = image_heigth + borderWidth * 2;
+  image_width = Number(image_width);
+  image_height = Number(image_height);
+  canvas.width = image_width + Number(borderWidth * 2);
+  canvas.height = image_height + Number(borderWidth * 2);
+
   // This is used to fill background of image
   // ctx.fillStyle = bg_color;
   // apply border radius
@@ -1032,7 +1042,7 @@ function download_image() {
   // apply filters :-
   ctx.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
   // apply - Backgound color
-  ctx.translate(image_width / 2 + borderWidth, image_heigth / 2 + borderWidth);
+  ctx.translate(image_width / 2 + borderWidth, image_height / 2 + borderWidth);
   // apply - rotate :-
   ctx.rotate((rotate_value * Math.PI) / 180);
   // apply - flip
@@ -1040,18 +1050,18 @@ function download_image() {
   if (isRotated === true) {
     ctx.drawImage(
       image,
-      -image_heigth / 2,
+      -image_height / 2,
       -image_width / 2,
-      image_heigth,
+      image_height,
       image_width
     );
   } else {
     ctx.drawImage(
       image,
       -image_width / 2,
-      -image_heigth / 2,
+      -image_height / 2,
       image_width,
-      image_heigth
+      image_height
     );
   }
   ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -1078,8 +1088,46 @@ download_button.addEventListener("click", () => {
   // this will show the download quality window
   download_option_window.classList.remove("hidden");
   download_image_preview.src = image.src;
+  download_image_preview.style.filter = `brightness(${brightness_value}%) contrast(${contrast_value}%) saturate(${saturation_value}%) blur(${blur_value}px) invert(${invert_value}) grayscale(${grayscale_value}%) sepia(${sepia_value}%)`;
+  download_image_preview.style.width = `${image_width}px`;
+  download_image_preview.style.height = `${image_height}px`;
+  download_image_preview.style.transform = `rotate(${rotate_value}deg) scaleX(${flip_vertical_value}) scaleY(${flip_horizontal_value})`;
+  download_image_preview.style.borderWidth = `${border_width}px`;
+  download_image_preview.style.borderColor = `${border_color}`;
+  download_image_preview.style.borderRadius = `${border_radius}px`;
 });
 
 // download_image_button after adjust the quality
 let download_image_button = document.getElementById("download_image_button");
 download_image_button.addEventListener("click", download_image);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Create an instance of URLSearchParams based on the current URL's query string
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  // Get the value of the 'button' query parameter
+  const buttonId = urlParams.get('button');
+  
+  // If there's a buttonId, try to click the corresponding button
+  if (buttonId) {
+    if(buttonId === "button1"){
+      all_selected_edit_box[1].click();
+    }
+    else if(buttonId === "button2"){
+      all_selected_edit_box[2].click();
+    }
+    else if(buttonId === "button3"){
+      all_selected_edit_box[3].click();
+    }
+    else if(buttonId === "button4"){
+      all_selected_edit_box[4].click();
+    }
+    else if(buttonId === "button5"){
+      all_selected_edit_box[5].click();
+    }
+  }
+  all_filtered_images.forEach((img) => {
+    img.src = "../Assets/sample_img_2.jpg";
+  })
+});
