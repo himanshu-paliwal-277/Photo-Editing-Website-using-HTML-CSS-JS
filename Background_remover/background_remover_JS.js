@@ -49,7 +49,9 @@ function remove_backgound() {
   let loader = document.getElementById("loader");
   loader.classList.remove("hidden");
   original_image.classList.add("opacity-80");
-  const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
+  // const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
+  // const apiKey = "7Lt2ibMDVmERC3NqjTNbi9qi";
+  const apiKey = "aq4BHm4XPDddngLBPshDnVvP";
   let image = file_input.files[0];
   const formData = new FormData();
   formData.append("image_file", image);
