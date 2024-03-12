@@ -5,18 +5,33 @@ const dropdownMenu_1 = document.getElementById("dropdown-menu-1");
 const dropdownMenu_2 = document.getElementById("dropdown-menu-2");
 const dropdownMenu_3 = document.getElementById("dropdown-menu-3");
 
-let remove_background_feature_link = document.querySelector("#remove_background_feature_link");
-let remove_background_feature_link_inside_svg = document.querySelector("#remove_background_feature_link > svg")
+let remove_background_feature_link = document.querySelector(
+  "#remove_background_feature_link"
+);
+let remove_background_feature_link_inside_svg = document.querySelector(
+  "#remove_background_feature_link > svg"
+);
 
-let basic_editing_feature_link = document.querySelector("#basic_editing_feature_link");
-let basic_editing_feature_link_inside_svg = document.querySelector("#basic_editing_feature_link > svg")
+let basic_editing_feature_link = document.querySelector(
+  "#basic_editing_feature_link"
+);
+let basic_editing_feature_link_inside_svg = document.querySelector(
+  "#basic_editing_feature_link > svg"
+);
 
-let crop_image_feature_link = document.querySelector("#crop_image_feature_link");
-let crop_image_feature_link_inside_svg = document.querySelector("#crop_image_feature_link > svg")
+let crop_image_feature_link = document.querySelector(
+  "#crop_image_feature_link"
+);
+let crop_image_feature_link_inside_svg = document.querySelector(
+  "#crop_image_feature_link > svg"
+);
 
-let drawing_board_feature_link = document.querySelector("#drawing_board_feature_link");
-let drawing_board_feature_link_inside_svg = document.querySelector("#drawing_board_feature_link > svg")
-
+let drawing_board_feature_link = document.querySelector(
+  "#drawing_board_feature_link"
+);
+let drawing_board_feature_link_inside_svg = document.querySelector(
+  "#drawing_board_feature_link > svg"
+);
 
 let isDropdown_1_Open = false;
 let isDropdown_2_Open = false;
@@ -96,36 +111,36 @@ if (window.performance.getEntriesByType("navigation")[0].type === "reload") {
 }
 
 remove_background_feature_link.addEventListener("mouseover", () => {
-  remove_background_feature_link_inside_svg.classList.add("invert")
-})
+  remove_background_feature_link_inside_svg.classList.add("invert");
+});
 
 remove_background_feature_link.addEventListener("mouseout", () => {
-  remove_background_feature_link_inside_svg.classList.remove("invert")
-})
+  remove_background_feature_link_inside_svg.classList.remove("invert");
+});
 
 basic_editing_feature_link.addEventListener("mouseover", () => {
-  basic_editing_feature_link_inside_svg.classList.add("invert")
-})
+  basic_editing_feature_link_inside_svg.classList.add("invert");
+});
 
 basic_editing_feature_link.addEventListener("mouseout", () => {
-  basic_editing_feature_link_inside_svg.classList.remove("invert")
-})
+  basic_editing_feature_link_inside_svg.classList.remove("invert");
+});
 
 crop_image_feature_link.addEventListener("mouseover", () => {
-  crop_image_feature_link_inside_svg.classList.add("invert")
-})
+  crop_image_feature_link_inside_svg.classList.add("invert");
+});
 
 crop_image_feature_link.addEventListener("mouseout", () => {
-  crop_image_feature_link_inside_svg.classList.remove("invert")
-})
+  crop_image_feature_link_inside_svg.classList.remove("invert");
+});
 
 drawing_board_feature_link.addEventListener("mouseover", () => {
-  drawing_board_feature_link_inside_svg.classList.add("invert")
-})
+  drawing_board_feature_link_inside_svg.classList.add("invert");
+});
 
 drawing_board_feature_link.addEventListener("mouseout", () => {
-  drawing_board_feature_link_inside_svg.classList.remove("invert")
-})
+  drawing_board_feature_link_inside_svg.classList.remove("invert");
+});
 
 // ______________________________ AOS JS library ______________________________
 AOS.init({

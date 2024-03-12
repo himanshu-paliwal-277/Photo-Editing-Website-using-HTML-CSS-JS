@@ -28,7 +28,7 @@
       }
 
       #bg_remover_div {
-        background-image: url('../Assets/sample_image_bg.jpg');
+        background-image: url("../Assets/sample_image_bg.jpg");
         background-repeat: no-repeat;
         background-size: cover;
       }
@@ -38,19 +38,19 @@
       }
 
       @keyframes loading {
-        0%{
+        0% {
           opacity: 1;
         }
-        50%{
+        50% {
           opacity: 0.5;
         }
-        100%{
+        100% {
           opacity: 1;
         }
       }
 
       #bg_remover_div_of_main_section {
-        background-image: url('../Assets/sample_image_bg.jpg');
+        background-image: url("../Assets/sample_image_bg.jpg");
         background-repeat: no-repeat;
         background-size: cover;
       }
@@ -61,13 +61,13 @@
       }
 
       @keyframes bg_remove_animation {
-        0%{
+        0% {
           width: 100%;
         }
-        30%{
+        30% {
           width: 100%;
         }
-        100%{
+        100% {
           width: 0%;
         }
       }
@@ -76,7 +76,11 @@
   <body class="w-full h-screen bg-gray-200 overflow-hidden">
     <!-- Navigation bar -->
     <!-- This div for Disable very thing until user input an image -->
-    <div id="disable_div" class="bg-gray-100 bg-opacity-10 w-full h-screen absolute z-10" title="Please open an image before editing"></div>
+    <div
+      id="disable_div"
+      class="bg-gray-100 bg-opacity-10 w-full h-screen absolute z-10"
+      title="Please open an image before editing"
+    ></div>
     <nav
       id="navbar"
       class="fixed inset-x-0 top-0 z-10 w-full px-8 py-0 bg-black shadow-sm shadow-gray-500 border-slate-500 transition duration-700 ease-out"
@@ -120,7 +124,10 @@
         </div>
         <div class="flex">
           <!-- disable download button -->
-          <div id="disable_download_div" class="bg-white bg-opacity-20 cursor-not-allowed absolute w-40 h-12 z-1 rounded-full"></div>
+          <div
+            id="disable_download_div"
+            class="bg-white bg-opacity-20 cursor-not-allowed absolute w-40 h-12 z-1 rounded-full"
+          ></div>
           <!-- Download Button -->
           <button
             id="download_button"
@@ -131,7 +138,6 @@
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
-              <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
               <path
                 fill="#ffffff"
                 d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z"
@@ -1042,11 +1048,23 @@
                 AI
               </h1>
               <div class="mx-12 flex flex-col justify-center items-center">
-                <div id="bg_remover_div" class="w-1/2 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500">
-                  <div id="gray_background" class="duration-1000 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"></div>
-                  <img class="w-full relative z-2 rounded-lg" src="../Assets/sample_img_4.png" alt="sample image">
+                <div
+                  id="bg_remover_div"
+                  class="w-1/2 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500"
+                >
+                  <div
+                    id="gray_background"
+                    class="duration-1000 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"
+                  ></div>
+                  <img
+                    class="w-full relative z-2 rounded-lg"
+                    src="../Assets/sample_img_4.png"
+                    alt="sample image"
+                  />
                 </div>
-                <span class="text-gray-200 opacity-90 mt-1 font-semibold">BG Remover</span>
+                <span class="text-gray-200 opacity-90 mt-1 font-semibold"
+                  >BG Remover</span
+                >
               </div>
             </section>
           </div>
@@ -1161,12 +1179,26 @@
           </svg>
         </div>
         <!-- Bg remove section -->
-        <div id="background_remove_section" class="hidden flex flex-col items-center px-6 py-8 bg-gray-50 absolute left-28 top-32 rounded-lg">
-          <div id="bg_remover_div_of_main_section" class="w-28 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500">
-            <div class="w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"></div>
-            <img class="w-full relative z-2 rounded-lg" src="../Assets/sample_img_4.png" alt="sample image">
+        <div
+          id="background_remove_section"
+          class="hidden flex flex-col items-center px-6 py-8 bg-gray-50 absolute left-28 top-32 rounded-lg"
+        >
+          <div
+            id="bg_remover_div_of_main_section"
+            class="w-28 cursor-pointer relative z-0 rounded-lg overflow-hidden hover:scale-95 active:scale-100 duration-500"
+          >
+            <div
+              class="w-1/2 bg-gradient-to-r from-cyan-500 to-blue-500 absolute z-1 h-full"
+            ></div>
+            <img
+              class="w-full relative z-2 rounded-lg"
+              src="../Assets/sample_img_4.png"
+              alt="sample image"
+            />
           </div>
-          <span class="pt-3 text-lg font-semibold text-gray-700 opacity-75">BG Remover</span>
+          <span class="pt-3 text-lg font-semibold text-gray-700 opacity-75"
+            >BG Remover</span
+          >
           <div class="text-white mt-4 flex">
             <button
               id="apply_bg_remove_button"
@@ -1185,24 +1217,53 @@
       </main>
     </section>
     <!-- Image Download quality Options -->
-    <div id="download_option_window" class="hidden bg-black bg-opacity-50 absolute top-0 z-10 flex justify-center items-center w-full h-screen">
+    <div
+      id="download_option_window"
+      class="hidden bg-black bg-opacity-50 absolute top-0 z-10 flex justify-center items-center w-full h-screen"
+    >
       <div class="bg-white pl-12 flex rounded-lg">
         <div class="h-80 w-60 flex justify-center items-center mx-8 my-20">
-          <img id="download_image_preview" class="shadow-2xl max-w-full max-h-full" src="" alt="image">
+          <img
+            id="download_image_preview"
+            class="shadow-2xl max-w-full max-h-full"
+            src=""
+            alt="image"
+          />
         </div>
         <div class="ml-8 w-80 text-sm text-gray-600 font-semibold my-20">
           <h2 class="mb-2">File Name</h2>
-          <input id="file_name_input" class="text-base text-black font-normal px-5 h-10 mb-6 w-full opacity-70 ring-1 ring-offset-0 ring-gray-400 rounded-md" type="text" value="image" name="file name" >
+          <input
+            id="file_name_input"
+            class="text-base text-black font-normal px-5 h-10 mb-6 w-full opacity-70 ring-1 ring-offset-0 ring-gray-400 rounded-md"
+            type="text"
+            value="image"
+            name="file name"
+          />
           <h2 class="mb-2">Format</h2>
           <div class="mb-6">
-            <button id="download_formate_jpg_button" class="ring-1 ring-offset-0 ring-gray-300 font-semibold mr-2 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2">JPG</button>
-            <button id="download_formate_png_button" class="ring-1 ring-offset-0 ring-blue-700 font-semibold text-blue-600 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2">PNG</button>
+            <button
+              id="download_formate_jpg_button"
+              class="ring-1 ring-offset-0 ring-gray-300 font-semibold mr-2 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2"
+            >
+              JPG
+            </button>
+            <button
+              id="download_formate_png_button"
+              class="ring-1 ring-offset-0 ring-blue-700 font-semibold text-blue-600 hover:ring-blue-700 opacity-80 rounded-md px-8 py-2"
+            >
+              PNG
+            </button>
           </div>
           <h2 class="mb-2 flex justify-between items-center">
             <span>Quality</span>
-            <span id="png_default_quality_span" class="mr-4 opacity-50 text-sm">High</span>
+            <span id="png_default_quality_span" class="mr-4 opacity-50 text-sm"
+              >High</span
+            >
           </h2>
-          <div id="select_download_quality_button" class="flex justify-between items-center cursor-pointer ring-1 ring-offset-0 ring-blue-700 font-semibold opacity-80 rounded-md px-5 py-2">
+          <div
+            id="select_download_quality_button"
+            class="flex justify-between items-center cursor-pointer ring-1 ring-offset-0 ring-blue-700 font-semibold opacity-80 rounded-md px-5 py-2"
+          >
             <span id="download_quality_span">Medium</span>
             <svg
               id="download_quality_div_arrow_svg"
@@ -1217,24 +1278,71 @@
               ></path>
             </svg>
           </div>
-          <div id="download_quality_options_low_medium_high" class="hidden mt-2 bg-white shadow-xl absolute w-[320px]">
-            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+          <div
+            id="download_quality_options_low_medium_high"
+            class="hidden mt-2 bg-white shadow-xl absolute w-[320px]"
+          >
+            <h2
+              class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100"
+            >
               <span>High</span>
-              <svg class="selected_tick w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              <svg
+                class="selected_tick w-4 h-4 hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                />
+              </svg>
             </h2>
-            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+            <h2
+              class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100"
+            >
               <span>Medium</span>
-              <svg class="selected_tick w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              <svg
+                class="selected_tick w-4 h-4"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                />
+              </svg>
             </h2>
-            <h2 class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100">
+            <h2
+              class="flex justify-between font-semibold cursor-pointer opacity-80 px-5 py-2 hover:bg-gray-100"
+            >
               <span>Low</span>
-              <svg class="selected_tick w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+              <svg
+                class="selected_tick w-4 h-4 hidden"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                />
+              </svg>
             </h2>
           </div>
-          <button id="download_image_button" class="mt-8 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 h-10 w-full rounded-md text-gray-100 flex justify-center items-center">Download</button>
+          <button
+            id="download_image_button"
+            class="mt-8 bg-blue-500 hover:bg-blue-400 active:bg-blue-500 h-10 w-full rounded-md text-gray-100 flex justify-center items-center"
+          >
+            Download
+          </button>
         </div>
         <div class="flex items-start py-3 px-5">
-          <svg id="close_download_option_button" class="w-6 h-6 cursor-pointer opacity-30 hover:opacity-100 active:opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+          <svg
+            id="close_download_option_button"
+            class="w-6 h-6 cursor-pointer opacity-30 hover:opacity-100 active:opacity-50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+          >
+            <path
+              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+            />
+          </svg>
         </div>
       </div>
     </div>

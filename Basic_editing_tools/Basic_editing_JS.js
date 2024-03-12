@@ -1102,33 +1102,28 @@ download_button.addEventListener("click", () => {
 let download_image_button = document.getElementById("download_image_button");
 download_image_button.addEventListener("click", download_image);
 
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Create an instance of URLSearchParams based on the current URL's query string
   const urlParams = new URLSearchParams(window.location.search);
-  
+
   // Get the value of the 'button' query parameter
-  const buttonId = urlParams.get('button');
-  
+  const buttonId = urlParams.get("button");
+
   // If there's a buttonId, try to click the corresponding button
   if (buttonId) {
-    if(buttonId === "button1"){
+    if (buttonId === "button1") {
       all_selected_edit_box[1].click();
-    }
-    else if(buttonId === "button2"){
+    } else if (buttonId === "button2") {
       all_selected_edit_box[2].click();
-    }
-    else if(buttonId === "button3"){
+    } else if (buttonId === "button3") {
       all_selected_edit_box[3].click();
-    }
-    else if(buttonId === "button4"){
+    } else if (buttonId === "button4") {
       all_selected_edit_box[4].click();
-    }
-    else if(buttonId === "button5"){
+    } else if (buttonId === "button5") {
       all_selected_edit_box[5].click();
     }
   }
   all_filtered_images.forEach((img) => {
     img.src = "../Assets/sample_img_2.jpg";
-  })
+  });
 });
