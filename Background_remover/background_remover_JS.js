@@ -10,27 +10,19 @@ let image_bg_remove_section = document.getElementById(
 let footer = document.querySelector("footer");
 let original_image = document.getElementById("original_image");
 let original_image_bg_div = document.getElementById("original_image_bg_div");
-// let zoom_input = document.getElementById("zoomRange");
 let imageURL;
 
-// imageURL = URL.createObjectURL(file_input.files[0]);
-
 image_bg_remove_section.classList.add("hidden");
-// _____________________EX______________________
-// bg_remove_upload_section.classList.add("hidden");
-// footer.classList.add("hidden");
-// image_bg_remove_section.classList.remove("hidden");
-// _____________________EX______________________
 
 Upload_image_btn.addEventListener("click", () => {
   file_input.click();
 });
+
 file_input.addEventListener("change", () => {
   setTimeout(() => {
     bg_remove_upload_section.classList.add("hidden");
     footer.classList.add("hidden");
     image_bg_remove_section.classList.remove("hidden");
-    // zoom_input.classList.remove("hidden");
   }, 100);
   let file = file_input.files[0];
   imageURL = URL.createObjectURL(file);
@@ -105,8 +97,8 @@ sample_img_1.addEventListener("click", () => {
   image_bg_remove_section.classList.remove("hidden");
   original_image.src = imageURL;
   document.body.classList.add("overflow-hidden");
-  // zoom_input.classList.remove("hidden");
 });
+
 sample_img_2.addEventListener("click", () => {
   imageURL = sample_img_2.src;
   bg_remove_upload_section.classList.add("hidden");
@@ -114,8 +106,8 @@ sample_img_2.addEventListener("click", () => {
   image_bg_remove_section.classList.remove("hidden");
   original_image.src = imageURL;
   document.body.classList.add("overflow-hidden");
-  // zoom_input.classList.remove("hidden");
 });
+
 sample_img_3.addEventListener("click", () => {
   imageURL = sample_img_3.src;
   bg_remove_upload_section.classList.add("hidden");
@@ -123,16 +115,10 @@ sample_img_3.addEventListener("click", () => {
   image_bg_remove_section.classList.remove("hidden");
   original_image.src = imageURL;
   document.body.classList.add("overflow-hidden");
-  // zoom_input.classList.remove("hidden");
 });
 
 // Zoom in Zoom out feature
 
-// var scale = 1;
-// zoom_input.addEventListener("input", function () {
-//   scale = this.value;
-//   original_image_bg_div.style.transform = `scale(${scale})`;
-// });
 let scale = 0.5;
 let zoomSpeed = 0.1;
 original_image_bg_div.style.transform = `scale(${scale})`;
@@ -142,14 +128,15 @@ image_bg_remove_section.addEventListener("wheel", (e) => {
 
   if (e.deltaY < 0) {
     // Scrolling up, zoom in
-    if(scale < 2){
+    if (scale < 2) {
       scale += zoomSpeed;
     }
   } else {
     // Scrolling down, zoom out
     scale -= zoomSpeed;
     if (scale <= 0.5) {
-      scale = 0.5; // Prevent zooming out beyond the initial scale
+      scale = 0.5;
+      // Prevent zooming out beyond the initial scale
     }
   }
 
