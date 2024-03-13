@@ -12,6 +12,18 @@ let original_image = document.getElementById("original_image");
 let original_image_bg_div = document.getElementById("original_image_bg_div");
 let imageURL;
 
+// Sample images
+let sample_img_1 = document.getElementById("sample_img_1");
+let sample_img_2 = document.getElementById("sample_img_2");
+let sample_img_3 = document.getElementById("sample_img_3");
+
+let is_sample_img_1 = false;
+let is_sample_img_2 = false;
+let is_sample_img_3 = false;
+
+// loader
+let loader = document.getElementById("loader");
+
 image_bg_remove_section.classList.add("hidden");
 
 Upload_image_btn.addEventListener("click", () => {
@@ -37,58 +49,8 @@ reUpload_image_btn.addEventListener("click", () => {
 let remove_bg_btn = document.getElementById("remove_bg_btn");
 let download_image_btn = document.getElementById("download_image_btn");
 
-function remove_backgound() {
-  let loader = document.getElementById("loader");
-  loader.classList.remove("hidden");
-  original_image.classList.add("opacity-80");
-  const apiKey = "aq4BHm4XPDddngLBPshDnVvP";
-  let image = file_input.files[0];
-  const formData = new FormData();
-  formData.append("image_file", image);
-  formData.append("size", "auto");
-
-  fetch("https://api.remove.bg/v1.0/removebg", {
-    method: "POST",
-    headers: {
-      "X-Api-Key": apiKey,
-    },
-    body: formData,
-  })
-    .then(function (reponse) {
-      return reponse.blob();
-    })
-    .then(function (blob) {
-      const url = URL.createObjectURL(blob);
-      imageURL = url;
-      original_image.src = url;
-      loader.classList.add("hidden");
-      original_image.classList.remove("opacity-80");
-    })
-    .catch(() => {
-      alert("ERROR");
-    });
-}
-
-function downloadFile() {
-  var anchorElement = document.createElement("a"); //<a></a>
-  anchorElement.href = imageURL;
-  anchorElement.download = "image.png";
-  document.body.appendChild(anchorElement);
-  anchorElement.click();
-  document.body.removeChild(anchorElement);
-}
-
-// Remove backgound from image :
-remove_bg_btn.addEventListener("click", remove_backgound);
-
-// Download image :
-download_image_btn.addEventListener("click", downloadFile);
-
-let sample_img_1 = document.getElementById("sample_img_1");
-let sample_img_2 = document.getElementById("sample_img_2");
-let sample_img_3 = document.getElementById("sample_img_3");
-
 sample_img_1.addEventListener("click", () => {
+  is_sample_img_1 = true;
   imageURL = sample_img_1.src;
   bg_remove_upload_section.classList.add("hidden");
   footer.classList.add("hidden");
@@ -98,6 +60,7 @@ sample_img_1.addEventListener("click", () => {
 });
 
 sample_img_2.addEventListener("click", () => {
+  is_sample_img_2 = true;
   imageURL = sample_img_2.src;
   bg_remove_upload_section.classList.add("hidden");
   footer.classList.add("hidden");
@@ -107,6 +70,7 @@ sample_img_2.addEventListener("click", () => {
 });
 
 sample_img_3.addEventListener("click", () => {
+  is_sample_img_3 = true;
   imageURL = sample_img_3.src;
   bg_remove_upload_section.classList.add("hidden");
   footer.classList.add("hidden");
@@ -141,3 +105,100 @@ image_bg_remove_section.addEventListener("wheel", (e) => {
   // Apply the scale transformation
   original_image_bg_div.style.transform = `scale(${scale})`;
 });
+
+function remove_backgound() {
+  if (is_sample_img_1) {
+    loader.classList.remove("hidden");
+    original_image.classList.add("opacity-80");
+    setTimeout(() => {
+      loader.classList.add("hidden");
+      original_image.classList.remove("opacity-80");
+      original_image.src = "../Assets/bg_removed_img_1.png";
+    }, 4000);
+    return;
+  } else if (is_sample_img_2) {
+    loader.classList.remove("hidden");
+    original_image.classList.add("opacity-80");
+    setTimeout(() => {
+      loader.classList.add("hidden");
+      original_image.classList.remove("opacity-80");
+      original_image.src = "../Assets/bg_removed_img_2.png";
+    }, 4000);
+    return;
+  } else if (is_sample_img_3) {
+    loader.classList.remove("hidden");
+    original_image.classList.add("opacity-80");
+    setTimeout(() => {
+      loader.classList.add("hidden");
+      original_image.classList.remove("opacity-80");
+      original_image.src = "../Assets/bg_removed_img_3.png";
+    }, 4000);
+    return;
+  }
+  loader.classList.remove("hidden");
+  original_image.classList.add("opacity-80");
+  const apiKey = "aq4BHm4XPDddngLBPshDnVvP";
+  let image = file_input.files[0];
+  const formData = new FormData();
+  formData.append("image_file", image);
+  formData.append("size", "auto");
+
+  fetch("https://api.remove.bg/v1.0/removebg", {
+    method: "POST",
+    headers: {
+      "X-Api-Key": apiKey,
+    },
+    body: formData,
+  })
+    .then(function (reponse) {
+      return reponse.blob();
+    })
+    .then(function (blob) {
+      const url = URL.createObjectURL(blob);
+      imageURL = url;
+      original_image.src = url;
+      loader.classList.add("hidden");
+      original_image.classList.remove("opacity-80");
+    })
+    .catch(() => {
+      alert("ERROR");
+    });
+}
+
+function downloadFile() {
+  if(is_sample_img_1|| is_sample_img_2 || is_sample_img_3){
+    download_img();
+    return;
+  }
+  var anchorElement = document.createElement("a"); //<a></a>
+  anchorElement.href = imageURL;
+  anchorElement.download = "image.png";
+  document.body.appendChild(anchorElement);
+  anchorElement.click();
+  document.body.removeChild(anchorElement);
+}
+
+// Remove backgound from image :
+remove_bg_btn.addEventListener("click", remove_backgound);
+
+// Download image :
+download_image_btn.addEventListener("click", downloadFile);
+
+function download_img() {
+  let canvas = document.createElement("canvas");
+  let ctx = canvas.getContext("2d");
+  canvas.width = original_image.naturalWidth;
+  canvas.height = original_image.naturalHeight;
+  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.drawImage(
+    original_image,
+    -canvas.width / 2,
+    -canvas.height / 2,
+    canvas.width,
+    canvas.height
+  );
+  const link = document.createElement("a");
+  link.download = "image.jpg";
+  link.href = canvas.toDataURL();
+  link.click();
+}
