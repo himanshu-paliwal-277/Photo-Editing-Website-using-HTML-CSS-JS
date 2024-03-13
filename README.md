@@ -15,9 +15,11 @@ The primary goal of this project is to apply and showcase the skills I've acquir
 
 The website is straightforward to use. Here's how you can get started:
 
-Upload an Image: Start by uploading the image you wish to edit.
-Edit Your Image: Use the available tools to crop, resize, or apply filters to your image.
-Save Your Image: Once you're satisfied with the edits, save the image to your device.
+- Upload an Image: Start by uploading the image you wish to edit.
+
+- Edit Your Image: Use the available tools to crop, resize, or apply filters to your image.
+
+- Save Your Image: Once you're satisfied with the edits, save the image to your device.
 
 ## Website Link
 
@@ -26,5 +28,6 @@ Save Your Image: Once you're satisfied with the edits, save the image to your de
 ## Project Screenshot
 
 ![Photo Editing Website Screenshot](./Assets/Photo%20Editor%20home%20page.png "Photo Editing Website Home page")
+
 
 ![Photo Editing Website Screenshot](./Assets/Photo%20editor%20editing%20page.png "Photo Editor editing page")
