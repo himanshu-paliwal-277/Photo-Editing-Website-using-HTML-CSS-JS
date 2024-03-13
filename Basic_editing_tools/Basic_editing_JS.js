@@ -831,8 +831,6 @@ let fileName = "image.jpg";
 
 function remove_backgound() {
   image.classList.add("opacity-80");
-  // const apiKey = "xLDZT7m1re43GfxVMsC9XW9a";
-  // const apiKey = "7Lt2ibMDVmERC3NqjTNbi9qi";
   const apiKey = "aq4BHm4XPDddngLBPshDnVvP";
 
   const formData = new FormData();
