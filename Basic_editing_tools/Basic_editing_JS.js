@@ -44,7 +44,6 @@ let download_button = document.getElementById("download_button");
 
 // disable div
 let disable_div = document.getElementById("disable_div");
-let disable_download_div = document.getElementById("disable_download_div");
 
 // All filters of filter section
 const filters = [
@@ -158,7 +157,13 @@ let is_second_import_image = false;
 
 file_input.addEventListener("change", function () {
   disable_div.classList.add("hidden");
-  disable_download_div.classList.add("hidden");
+  download_button.removeAttribute("disabled");
+  download_button.classList.remove("cursor-not-allowed");
+  download_button.classList.add("hover:scale-95");
+  download_button.classList.add("hover:bg-blue-500");
+  download_button.classList.add("active:bg-blue-600");
+  download_button.classList.remove("bg-blue-500");
+  download_button.classList.add("bg-blue-600");
 
   image.style.width = "";
   image.style.height = "";
